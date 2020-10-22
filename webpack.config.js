@@ -10,6 +10,13 @@ module.exports = {
     publicPath:'/dist/',
     filename: 'js/app.js'
   },
+  resolve: {
+    alias: {
+      pages: path.resolve(__dirname,'src/pages'),
+      // page:'./src/pages',
+      store: path.resolve(__dirname,'store')
+    }
+  },
   module: {
     rules: [
         // babel配置
