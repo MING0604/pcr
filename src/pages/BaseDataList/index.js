@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { List, Button, Divider } from 'antd';
+import { List, Button, Divider, Input } from 'antd';
 import { Link } from 'react-router-dom'
+
+import { ADD_CHARACTER_ITEM, ADD_BOSS_ITEM } from 'store/ActionType'
 
 import './index.css'
 
@@ -10,7 +12,8 @@ class BaseDataList extends Component {
         super(props)
 
         this.state = {
-            
+            bossItem:'',
+            characterItem:''
         }
     }
     componentWillMount(){
@@ -19,15 +22,72 @@ class BaseDataList extends Component {
             this.props.history.push('/login')
         }
     }
+    // 删除boss数据
+    deleteBossItem(item){
+        window.confirm(`您确定要删除${item}吗？`)
+    }
+
+    // 删除角色数据
+    deleteCharacterItem(item){
+        window.confirm(`您确定要删除${item}吗？`)
+    }
+
+    // 同步添加boss输入框与state
+    addBossItem(bossItem){
+        this.setState({
+            bossItem
+        })
+    }
+
+    // 同步添加character输入框与state
+    addCharacterItem(characterItem){
+        this.setState({
+            characterItem
+        })
+    }
     render() {
+        // 解析boss列表
         const bossList = this.props.bossData.map((bossItem)=>{
-            let stage = String.fromCharCode(65+bossItem.stage-1)
-            return `${stage}${bossItem.bossId}${bossItem.name}`
+            return bossItem
         })
         
+        // 解析角色列表
         const characterList = this.props.characterData.map((characterItem)=>{
             return characterItem.name
         })
+
+        // 添加boss的输入框
+        const addBossItem = (
+            <div>
+                <Input style={{width:'70%'}} 
+                    value={this.state.bossItem}
+                    onChange={(e)=>{this.addBossItem(e.target.value)}}></Input>
+                <Button className="add-btn"
+                    onClick={()=>{
+                        this.setState({
+                            bossItem:''
+                        })
+                        this.props.addBoss(this.state.bossItem)
+                    }}>添加Boss</Button>
+            </div>
+        )
+
+        // 添加角色的输入框
+        const addCharacterItem = (
+            <div>
+                <Input style={{width:'70%'}}
+                    value={this.state.characterItem}
+                    onChange={(e)=>{this.addCharacterItem(e.target.value)}}></Input>
+                <Button className="add-btn"
+                    onClick={()=>{
+                        this.props.addCharacter(this.state.characterItem)
+                        this.setState({
+                            characterItem:''
+                        })
+                    }}>添加角色</Button>
+            </div>
+        )
+
         return (
             <div className="base-data-list">
                 <Button type="primary" className='switch-btn'>
@@ -39,10 +99,13 @@ class BaseDataList extends Component {
                     size="small"
                     bordered
                     dataSource={bossList}
-                    footer={<div>Footer</div>}
+                    footer={addBossItem}
                     renderItem={item => (
                         <List.Item>
                             {item}
+                            <Button type="danger" 
+                                className='delete-btn'
+                                onClick={()=>{this.deleteBossItem(item)}}>删除</Button>
                         </List.Item>
                     )}
                     />
@@ -52,10 +115,13 @@ class BaseDataList extends Component {
                     size="small"
                     bordered
                     dataSource={characterList}
-                    footer={<div>Footer</div>}
+                    footer={addCharacterItem}
                     renderItem={item => (
                         <List.Item>
                             {item}
+                            <Button type="danger" 
+                                className='delete-btn'
+                                onClick={()=>{this.deleteCharacterItem(item)}}>删除</Button>
                         </List.Item>
                     )}
                     />
@@ -73,7 +139,20 @@ const mapSateToProps = (state)=>{
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        
+        addBoss(bossMsg){
+            const action={
+                type:ADD_BOSS_ITEM,
+                value:bossMsg
+            }
+            dispatch(action)
+        },
+        addCharacter(characterMsg){
+            const action={
+                type:ADD_CHARACTER_ITEM,
+                value:characterMsg
+            }
+            dispatch(action)
+        }
     }
 }
 

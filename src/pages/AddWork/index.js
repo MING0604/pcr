@@ -110,8 +110,8 @@ class AddWork extends Component {
                             this.props.bossData.map((bossItem,index)=>{
                                 let stage = String.fromCharCode(65+bossItem.stage-1)
                                 return (
-                                    <Option key={index} value={`${stage}${bossItem.bossId}${bossItem.name}`}>
-                                        {`${stage}${bossItem.bossId}${bossItem.name}`}
+                                    <Option key={index} value={bossItem}>
+                                        {bossItem}
                                     </Option>
                                 )
                             })
