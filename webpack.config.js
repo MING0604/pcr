@@ -77,9 +77,12 @@ module.exports = {
     new webpack.optimize.CommonsChunkPlugin({
         name : 'commin',
         filename: 'js/base.js'
-    })
+    }),
   ],
   devServer: {
-      port: 8086
+      port: 8086,
+      historyApiFallback:{ 
+        index: '/dist/index.html'
+      }
   }
 };

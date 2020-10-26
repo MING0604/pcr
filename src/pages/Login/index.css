@@ -1,0 +1,9 @@
+.login-form {
+  display: flex;
+  align-items: center;
+  padding-top: 100px !important;
+  flex-direction: column;
+}
+.login-form .login-from-item {
+  width: 300px;
+}

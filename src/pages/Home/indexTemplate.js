@@ -39,7 +39,7 @@ const mapDispatchToProps = (dispatch) => {
                 type:TEST,
                 value:'改变后的测试样例'
             }
-            console.log('没出发吗')
+            console.log('没触发吗')
             dispatch(action)
         }
     }

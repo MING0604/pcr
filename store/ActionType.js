@@ -1,5 +1,5 @@
-const TEST = 'test'
+const ADD_WORK = 'add_work'
 
 export {
-    TEST
+    ADD_WORK
 }

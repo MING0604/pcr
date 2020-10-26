@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 
 class App extends Component {
     constructor(props) {
@@ -11,7 +12,11 @@ class App extends Component {
 
     render() {
         return (
-            <div>index</div>
+            <div>
+                <Link to='/addWork'>添加作业</Link>
+                <br></br>
+                <Link to='/workList'>查看作业</Link>
+            </div>
         )
     }
 }

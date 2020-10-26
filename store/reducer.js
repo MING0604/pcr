@@ -1,16 +1,15 @@
-import {TEST} from 'store/ActionType'
+import {ADD_WORK} from 'store/ActionType'
 
-const defaultState = {
-    test:'测试样例'
-}
+import defaultState from './state'
+
 
 export default (state = defaultState, action) => {
     switch(action.type){
-        case TEST:
+        case ADD_WORK:
             let newState = JSON.parse(JSON.stringify(state))
-            newState.test = action.value
-            console.log('reducer')
+            newState.workList.push(action.value)
             return newState
+            
     }
     return state
 }

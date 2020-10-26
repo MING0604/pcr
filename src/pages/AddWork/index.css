@@ -1,0 +1,14 @@
+.addWork {
+  margin-top: 60px;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+.addWork .addWorkFrom {
+  width: 50%;
+}
+.addWork .switchBtn {
+  position: absolute;
+  top: 50px;
+  right: 100px;
+}
