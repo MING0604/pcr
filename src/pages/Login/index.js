@@ -22,6 +22,13 @@ class Login extends Component {
             [name]:value
         })
     }
+
+    // 对于回车的相应
+    handleKeyUp(e){
+        if(e.keyCode == 13){
+            this.login()
+        }
+    }
     // 登陆
     login(){
         if(!this.state.username){
@@ -47,7 +54,8 @@ class Login extends Component {
                     >
                     <Input placeholder="请输入用户名" 
                         name="username"
-                        onChange={(e)=>{this.handleInputChange(e)}}/>
+                        onChange={(e)=>{this.handleInputChange(e)}}
+                        onKeyUp={(e)=>{this.handleKeyUp(e)}}/>
                 </Form.Item>
 
                 <Form.Item
@@ -56,7 +64,8 @@ class Login extends Component {
                     >
                     <Input.Password placeholder="请输入密码"
                         name="password"
-                        onChange={(e)=>{this.handleInputChange(e)}}/>
+                        onChange={(e)=>{this.handleInputChange(e)}}
+                        onKeyUp={(e)=>{this.handleKeyUp(e)}}/>
                 </Form.Item>
 
                 <Form.Item>
