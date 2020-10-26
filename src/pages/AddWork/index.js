@@ -73,7 +73,7 @@ class AddWork extends Component {
         }else{
             this.props.addWork(this.state)
             alert('添加成功！')
-            this.props.history.push('/Base')
+            this.props.history.push('/workList')
         }
         
     }
