@@ -51,6 +51,36 @@ class BaseDataList extends Component {
         })
     }
 
+    // 相应添加boss的回车
+    handleAddBossKey(e){
+        if(e.keyCode == 13){
+            this.handleAddBossBtn()
+        }
+    }
+
+    // 相应添加角色的回车
+    handleAddCharacterKey(e){
+        if(e.keyCode == 13){
+            this.handleAddCharacterBtn()
+        }
+    }
+
+    // 点击添加boss
+    handleAddBossBtn(){
+        this.setState({
+            bossItem:''
+        })
+        this.props.addBoss(this.state.bossItem)
+    }
+
+    // 点击添加角色
+    handleAddCharacterBtn(){
+        this.props.addCharacter(this.state.characterItem)
+        this.setState({
+            characterItem:''
+        })
+    }
+
     // 清除boss列表
     clearBossList(){
         const flag = window.confirm('您确定要删除全部boss的数据吗，此行为不可逆,(需确认三次，第一次确认)') 
@@ -75,14 +105,10 @@ class BaseDataList extends Component {
             <div>
                 <Input style={{width:'70%'}} 
                     value={this.state.bossItem}
-                    onChange={(e)=>{this.addBossItem(e.target.value)}}></Input>
+                    onChange={(e)=>{this.addBossItem(e.target.value)}}
+                    onKeyUp={(e)=>{this.handleAddBossKey(e)}}></Input>
                 <Button className="add-btn"
-                    onClick={()=>{
-                        this.setState({
-                            bossItem:''
-                        })
-                        this.props.addBoss(this.state.bossItem)
-                    }}>添加Boss</Button>
+                    onClick={()=>{this.handleAddBossBtn()}}>添加Boss</Button>
             </div>
         )
 
@@ -91,14 +117,10 @@ class BaseDataList extends Component {
             <div>
                 <Input style={{width:'70%'}}
                     value={this.state.characterItem}
-                    onChange={(e)=>{this.addCharacterItem(e.target.value)}}></Input>
+                    onChange={(e)=>{this.addCharacterItem(e.target.value)}}
+                    onKeyUp={(e)=>{this.handleAddCharacterKey(e)}}></Input>
                 <Button className="add-btn"
-                    onClick={()=>{
-                        this.props.addCharacter(this.state.characterItem)
-                        this.setState({
-                            characterItem:''
-                        })
-                    }}>添加角色</Button>
+                    onClick={()=>{this.handleAddCharacterBtn()}}>添加角色</Button>
             </div>
         )
 
