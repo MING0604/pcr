@@ -68,7 +68,6 @@ export default (state = defaultState, action) => {
             return newState
         case ADD_CHARACTER_ITEM:
             newState = JSON.parse(JSON.stringify(state))
-            console.log(findIndex(newState.characterData,{name:action.value}))
             if(findIndex(newState.characterData,{name:action.value})!=-1){
                 alert('存在重名的角色！添加失败');
                 return newState
