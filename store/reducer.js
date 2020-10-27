@@ -55,7 +55,14 @@ export default (state = defaultState, action) => {
     switch(action.type){
         case ADD_WORK:
             newState = JSON.parse(JSON.stringify(state))
-            newState.workList.push(action.value)
+            let newWork = action.value,
+                listLength = newState.workList.length
+            if(listLength==0){
+                newWork.wid = 1001
+            }else{
+                newWork.wid = newState.workList[listLength-1].wid + 1
+            }
+            newState.workList.push(newWork)
             return newState
         case ADD_BOSS_ITEM:
             newState = JSON.parse(JSON.stringify(state))

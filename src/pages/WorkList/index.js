@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import WorkCard from 'pages/WorkList/WorkCard'
 
 class WorkList extends Component {
     constructor(props) {
@@ -12,7 +13,9 @@ class WorkList extends Component {
 
     render() {
         return (
-            <div>123123</div>
+            <div>
+                <WorkCard />
+            </div>
         )
     }
 }
