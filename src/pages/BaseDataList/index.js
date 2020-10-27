@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { List, Button, Divider, Input } from 'antd';
 import { Link } from 'react-router-dom'
 
-import { ADD_CHARACTER_ITEM, ADD_BOSS_ITEM, DELETE_BOSS_ITEM, DELETE_CHARACTER_ITEM } from 'store/ActionType'
+import { ADD_CHARACTER_ITEM, ADD_BOSS_ITEM, DELETE_BOSS_ITEM, DELETE_CHARACTER_ITEM, CLEAR_BOSS_LIST } from 'store/ActionType'
 
 import './index.css'
 
@@ -49,6 +49,15 @@ class BaseDataList extends Component {
         this.setState({
             characterItem
         })
+    }
+
+    // 清除boss列表
+    clearBossList(){
+        const flag = window.confirm('您确定要删除全部boss的数据吗，此行为不可逆,(需确认三次，第一次确认)') 
+            && window.confirm('您确定要删除全部boss的数据吗，此行为不可逆,(需确认三次，第二次确认)')
+            && window.confirm('您确定要删除全部boss的数据吗，此行为不可逆,(需确认三次，第三次确认)')
+        if(!flag) return false
+        this.props.clearBossList()
     }
     render() {
         // 解析boss列表
@@ -98,6 +107,7 @@ class BaseDataList extends Component {
                 <Button type="primary" className='switch-btn'>
                     <Link to='/'>返回首页</Link>
                 </Button>
+                <Button className="clear-boss-btn" onClick={()=>{this.clearBossList()}}>删除全部boss</Button>
                 <Divider orientation="left">Boss列表</Divider>
                 <List
                     className="list"
@@ -173,6 +183,13 @@ const mapDispatchToProps = (dispatch) => {
             const action = {
                 type:DELETE_CHARACTER_ITEM,
                 value: characterObj
+            }
+            dispatch(action)
+        },
+        // 清除boss列表
+        clearBossList(){
+            const action={
+                type:CLEAR_BOSS_LIST
             }
             dispatch(action)
         }

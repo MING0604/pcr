@@ -1,4 +1,4 @@
-import { ADD_WORK, ADD_BOSS_ITEM, ADD_CHARACTER_ITEM, DELETE_BOSS_ITEM, DELETE_CHARACTER_ITEM } from 'store/ActionType'
+import { ADD_WORK, ADD_BOSS_ITEM, ADD_CHARACTER_ITEM, DELETE_BOSS_ITEM, DELETE_CHARACTER_ITEM, CLEAR_BOSS_LIST } from 'store/ActionType'
 
 import defaultState from './state'
 
@@ -82,6 +82,10 @@ export default (state = defaultState, action) => {
         case DELETE_CHARACTER_ITEM:
             newState = JSON.parse(JSON.stringify(state))
             deleteItem(newState.characterData,action.value)
+            return newState
+        case CLEAR_BOSS_LIST:
+            newState = JSON.parse(JSON.stringify(state))
+            newState.bossData = []
             return newState
     }
     return state

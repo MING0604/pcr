@@ -22,3 +22,8 @@
   top: 50px;
   right: -150px;
 }
+.base-data-list .clear-boss-btn {
+  position: absolute;
+  right: -20px;
+  top: 54px;
+}
