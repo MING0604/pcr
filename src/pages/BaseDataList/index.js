@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { List, Button, Divider, Input } from 'antd';
 import { Link } from 'react-router-dom'
 
-import { ADD_CHARACTER_ITEM, ADD_BOSS_ITEM } from 'store/ActionType'
+import { ADD_CHARACTER_ITEM, ADD_BOSS_ITEM, DELETE_BOSS_ITEM, DELETE_CHARACTER_ITEM } from 'store/ActionType'
 
 import './index.css'
 
@@ -24,12 +24,17 @@ class BaseDataList extends Component {
     }
     // 删除boss数据
     deleteBossItem(item){
-        window.confirm(`您确定要删除${item}吗？`)
+        if(window.confirm(`您确定要删除${item}吗？`)){
+            this.props.deleteBoss(item)
+        }
     }
 
     // 删除角色数据
     deleteCharacterItem(item){
-        window.confirm(`您确定要删除${item}吗？`)
+        if(window.confirm(`您确定要删除${item}吗？`)){
+            let characterObj = {name:item}
+            this.props.deleteCharacter(characterObj)
+        }
     }
 
     // 同步添加boss输入框与state
@@ -139,6 +144,7 @@ const mapSateToProps = (state)=>{
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        // 添加boss
         addBoss(bossMsg){
             const action={
                 type:ADD_BOSS_ITEM,
@@ -146,13 +152,31 @@ const mapDispatchToProps = (dispatch) => {
             }
             dispatch(action)
         },
+        // 添加角色
         addCharacter(characterMsg){
             const action={
                 type:ADD_CHARACTER_ITEM,
                 value:characterMsg
             }
             dispatch(action)
+        },
+        // 删除boss
+        deleteBoss(bossMsg){
+            const action = {
+                type:DELETE_BOSS_ITEM,
+                value: bossMsg
+            }
+            dispatch(action)
+        },
+        // 删除角色
+        deleteCharacter(characterObj){
+            const action = {
+                type:DELETE_CHARACTER_ITEM,
+                value: characterObj
+            }
+            dispatch(action)
         }
+        
     }
 }
 
