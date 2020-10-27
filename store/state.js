@@ -41,7 +41,7 @@ const defaultState = {
     ],
     workList:[
         {
-            bossName: "A2格里芬",
+            bossName: "A1格里芬",
             characterList: [
                 "狗拳",
                 "狼姐",

@@ -14,7 +14,8 @@ module.exports = {
     alias: {
       pages: path.resolve(__dirname,'src/pages'),
       // page:'./src/pages',
-      store: path.resolve(__dirname,'store')
+      store: path.resolve(__dirname,'store'),
+      util: path.resolve(__dirname,'src/util')
     }
   },
   module: {

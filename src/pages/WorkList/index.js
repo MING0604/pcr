@@ -1,20 +1,80 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import WorkCard from 'pages/WorkList/WorkCard'
+import { Collapse, Modal } from 'antd';
+import MM from 'util/MM'
+import './index.css'
 
+const _mm = new MM()
 class WorkList extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            
+            previewVisible: false
         }
+    }
+    // 显示图片
+    showImg(previewImg){
+        this.setState({
+            previewVisible:true,
+            previewImg
+        },()=>{
+            console.log(this.state)
+        })  
+    }
+    // 隐藏图片
+    handleCancel(){
+        this.setState({ previewVisible: false });  
     }
 
     render() {
+        const { Panel } = Collapse;
         return (
             <div>
-                <WorkCard />
+                <div className="work-list">
+                    <Collapse >
+                        {
+                            this.props.workList.map((workItem)=>{
+                                let characterList = workItem.characterList.toString(),
+                                    bossName = workItem.bossName,
+                                    damage = workItem.damage,
+                                    workMessage = workItem.workMessage,
+                                    workType = workItem.workType,
+                                    wid = workItem.wid
+                                let header = (
+                                    <div className="work-item">
+                                        <div>{`boss： ${bossName}`}</div>
+                                        <div>{`阵容： ${characterList}`}</div>
+                                        <div>{`标伤： ${damage}`}</div>
+                                    </div>
+                                )
+                                return (
+                                    <Panel key={wid} header={header}>
+                                        {
+                                            workType == 'url'
+                                            ?
+                                            <a href={workMessage} target="_blank" >作业链接：{workMessage}</a>
+                                            :
+                                            <div>
+                                                <img style={{width:"80px"}} 
+                                                    src={workMessage}
+                                                    onClick={()=>{this.showImg(workMessage)}}></img>
+                                                <Modal
+                                                visible={this.state.previewVisible}
+                                                onCancel={()=>{this.handleCancel()}}
+                                                >
+                                                    <img alt="example" style={{ width: '100%' }} src={this.state.previewImg} />
+                                                </Modal>
+                                            </div>
+                                        }
+                                    </Panel>
+                                )
+                                
+                            })
+                        }
+                    </Collapse>
+                </div>
+
             </div>
         )
     }
@@ -22,7 +82,7 @@ class WorkList extends Component {
 
 const mapSateToProps = (state)=>{
     return {
-        workList:state.workList
+        workList:_mm.sortOnBossAndDamage(state.workList)
     }
 }
 
