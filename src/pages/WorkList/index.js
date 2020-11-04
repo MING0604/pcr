@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Collapse, Modal } from 'antd';
+import jsonP from 'jsonp'
 import MM from 'util/MM'
 import './index.css'
 
@@ -27,10 +28,24 @@ class WorkList extends Component {
         this.setState({ previewVisible: false });  
     }
 
+    // 测试接口
+    testClick(){
+        _mm.request({
+            type:'post',
+            url:'/test',
+            data:{
+                name:'修改boss数目'
+            }
+        }).then(res=>{
+            console.log(res)
+        })
+    }
+
     render() {
         const { Panel } = Collapse;
         return (
             <div>
+                <button onClick={()=>{this.testClick()}}>344</button>
                 <div className="work-list">
                     <Collapse >
                         {

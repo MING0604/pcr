@@ -1,5 +1,23 @@
-
+import axios from 'axios'
 class MM {
+    // 异步请求
+    request(params){
+        return new Promise((resolve,reject)=>{
+            axios({
+                method: params.type || 'get',
+                url: params.url || '',
+                responseType: params.dataType || 'json',
+                data: params.data || null
+            })
+            .then(res=>{
+                resolve(res.data)
+            })
+            .catch(err=>{
+                reject(err)
+            })
+        })
+    }
+
     // 仅根据伤害排序
     sortOnDamage(workList){
         workList.sort((next,prev)=>{
@@ -54,6 +72,7 @@ class MM {
             console.log(reader.result)
         }
     }
+    
 }
 
 export default MM

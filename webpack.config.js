@@ -84,6 +84,12 @@ module.exports = {
       port: 8086,
       historyApiFallback:{ 
         index: '/dist/index.html'
+      },
+      proxy:{
+        '/test' :{
+          target: 'http://127.0.0.1:8081',
+          changeOrigin: true
+        }
       }
   }
 };
