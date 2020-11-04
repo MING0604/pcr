@@ -2,29 +2,56 @@ import React, { Component } from 'react'
 import { List, Button, Divider, Input } from 'antd';
 import { Link } from 'react-router-dom'
 
+import MM from 'util/MM'
 
 import './index.css'
 
+const _mm = new MM()
 class BaseDataList extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
             bossItem:'',
-            characterItem:''
+            characterItem:'',
+            characterData:[],
+            bossData:[]
         }
     }
-    componentWillMount(){
+    async componentWillMount(){
+        // 判断是否具有管理员权限
         let ifLogin = localStorage.getItem('ifLogin')
         if(!ifLogin){
             this.props.history.push('/login')
         }
+        // 异步请求boss和角色数据
+        let bossData = await _mm.request({
+            url:'/getBoss'
+        })
+        let characterData = await _mm.request({
+            url:'/getCharacter'
+        })
+        this.setState({
+            characterData,
+            bossData
+        })
     }
     // 删除boss数据
-    deleteBossItem(item){
+    async deleteBossItem(item){
         if(window.confirm(`您确定要删除${item}吗？`)){
-            // 异步请求，删除boss吧！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
+            // 异步请求，删除boss
             // this.props.deleteBoss(item)
+            await _mm.request({
+                type:'post',
+                url:'/deleteBoss',
+                data:item
+            })
+            let bossData = await _mm.request({
+                url:'/getBoss'
+            })
+            this.setState({
+                bossData
+            })
         }
     }
 
@@ -66,12 +93,23 @@ class BaseDataList extends Component {
     }
 
     // 点击添加boss
-    handleAddBossBtn(){
+    async handleAddBossBtn(){
         this.setState({
             bossItem:''
         })
-        // 异步请求，添加boss ！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
+        // 异步请求，添加boss 
         // this.props.addBoss(this.state.bossItem)
+        await _mm.request({
+            type:'post',
+            url:'/addBoss',
+            data:this.state.bossItem
+        })
+        let bossData = await _mm.request({
+            url:'/getBoss'
+        })
+        this.setState({
+            bossData
+        })
     }
 
     // 点击添加角色
@@ -94,18 +132,16 @@ class BaseDataList extends Component {
     }
     render() {
         // 解析boss列表
-        // 异步请求，请求boss数据 ！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
-        // const bossList = this.props.bossData.map((bossItem)=>{
-        //     return bossItem
-        // })
-        const bossList = ['一王','二王']
+        // 异步请求，请求boss数据 
+        const bossList = this.state.bossData.map((bossItem)=>{
+            return bossItem
+        })
         
         // 解析角色列表
-        // 异步请求，请求角色数据！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
-        // const characterList = this.props.characterData.map((characterItem)=>{
-        //     return characterItem.name
-        // })
-        const characterList = ['狗拳','狼姐','猫拳']
+        // 异步请求，请求角色数据
+        const characterList = this.state.characterData.map((characterItem)=>{
+            return characterItem.name
+        })
 
         // 添加boss的输入框
         const addBossItem = (

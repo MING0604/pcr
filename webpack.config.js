@@ -89,7 +89,27 @@ module.exports = {
         '/getWork' :{
           target: 'http://127.0.0.1:8081',
           changeOrigin: true
-        }
+        },
+        '/getCharacter' :{
+          target: 'http://127.0.0.1:8081',
+          changeOrigin: true
+        },
+        '/getBoss' :{
+          target: 'http://127.0.0.1:8081',
+          changeOrigin: true
+        },
+        '/addBoss' :{
+          target: 'http://127.0.0.1:8081',
+          changeOrigin: true
+        },
+        '/deleteBoss' :{
+          target: 'http://127.0.0.1:8081',
+          changeOrigin: true
+        },
+        '/clearBoss' :{
+          target: 'http://127.0.0.1:8081',
+          changeOrigin: true
+        },
       }
   }
 };

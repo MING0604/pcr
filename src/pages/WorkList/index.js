@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import { Collapse, Modal } from 'antd';
 import MM from 'util/MM'
 import './index.css'

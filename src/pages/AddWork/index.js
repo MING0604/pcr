@@ -2,9 +2,11 @@ import React, { Component } from 'react'
 import { Form, Select, Button,Input  } from 'antd';
 import { Link } from 'react-router-dom';
 import ImageUploader from './ImageUpload';
+import MM from 'util/MM'
 
 import './index.css'
 
+const _mm = new MM()
 const { Option } = Select;
 
 class AddWork extends Component {
@@ -17,15 +19,25 @@ class AddWork extends Component {
             damage:null,
             workMessage:'',
             workType:'image',
-            characterData:[
-                {name:'狗'},
-                {name:'狼'}
-            ],
-            bossData:['一王','二王']
+            characterData:[],
+            bossData:[]
         }
         
     }
 
+    // 异步请求角色和boss数据
+    async componentDidMount(){
+        let characterData = await _mm.request({
+            url:'/getCharacter'
+        })
+        let bossData = await _mm.request({
+            url:'/getBoss'
+        })
+        this.setState({
+            characterData,
+            bossData
+        })
+    }
     // 修改作业boss目标
     handleBossChange(bossName) {
         this.setState({
