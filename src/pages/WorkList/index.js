@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Collapse, Modal } from 'antd';
-import jsonP from 'jsonp'
 import MM from 'util/MM'
 import './index.css'
 
@@ -11,8 +10,18 @@ class WorkList extends Component {
         super(props)
 
         this.state = {
-            previewVisible: false
+            previewVisible: false,
+            workList:[]
         }
+    }
+    // 异步请求作业列表
+    async componentDidMount(){
+        let workList = await _mm.request({
+            url:'/getWork'
+        })
+        this.setState({
+            workList
+        })
     }
     // 显示图片
     showImg(previewImg){
@@ -28,28 +37,14 @@ class WorkList extends Component {
         this.setState({ previewVisible: false });  
     }
 
-    // 测试接口
-    testClick(){
-        _mm.request({
-            type:'post',
-            url:'/test',
-            data:{
-                name:'修改boss数目'
-            }
-        }).then(res=>{
-            console.log(res)
-        })
-    }
-
     render() {
         const { Panel } = Collapse;
         return (
             <div>
-                <button onClick={()=>{this.testClick()}}>344</button>
                 <div className="work-list">
                     <Collapse >
                         {
-                            this.props.workList.map((workItem)=>{
+                            this.state.workList.map((workItem)=>{
                                 let characterList = workItem.characterList.toString(),
                                     bossName = workItem.bossName,
                                     damage = workItem.damage,
@@ -95,16 +90,5 @@ class WorkList extends Component {
     }
 }
 
-const mapSateToProps = (state)=>{
-    return {
-        workList:_mm.sortOnBossAndDamage(state.workList)
-    }
-}
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        
-    }
-}
-
-export default connect(mapSateToProps,mapDispatchToProps)(WorkList)
+export default WorkList

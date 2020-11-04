@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Form, Input, Button } from 'antd';
-import { connect } from 'react-redux'
 
 import './index.css'
 
@@ -35,13 +34,19 @@ class Login extends Component {
             alert('用户名不能为空！')
         }else if(!this.state.password){
             alert('密码不能为空！')
-        }else if(this.state.username == this.props.userMsg.username 
-            && this.state.password == this.props.userMsg.password){
-                alert('登陆成功！')
-                localStorage.setItem('ifLogin',true)
-                window.history.back();
-        }else{
-            alert('用户名或密码错误')
+        }else {
+            alert('登陆成功！')
+            localStorage.setItem('ifLogin',true)
+            window.history.back();
+            // 异步请求，登陆！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
+            // if(this.state.username == this.props.userMsg.username 
+            //     && this.state.password == this.props.userMsg.password){
+            //         alert('登陆成功！')
+            //         localStorage.setItem('ifLogin',true)
+            //         window.history.back();
+            // }else{
+            //     alert('用户名或密码错误')
+            // }
         }
     }
 
@@ -78,11 +83,6 @@ class Login extends Component {
     }
 }
 
-const mapSateToProps = (state)=>{
-    return {
-        userMsg: state.userMsg
-    }
-}
 
 
-export default connect(mapSateToProps,null)(Login)
+export default Login

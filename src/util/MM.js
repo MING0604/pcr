@@ -64,14 +64,7 @@ class MM {
         return workList
     }
 
-    // 读取本地文件，同步到redux中,失败
-    updateRedux(){
-        const reader = new FileReader()
-        reader.readAsText('/state.json','utf-8')
-        reader.onload = ()=>{
-            console.log(reader.result)
-        }
-    }
+
     
 }
 

@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import { List, Button, Divider, Input } from 'antd';
 import { Link } from 'react-router-dom'
 
-import { ADD_CHARACTER_ITEM, ADD_BOSS_ITEM, DELETE_BOSS_ITEM, DELETE_CHARACTER_ITEM, CLEAR_BOSS_LIST } from 'store/ActionType'
 
 import './index.css'
 
@@ -25,7 +23,8 @@ class BaseDataList extends Component {
     // 删除boss数据
     deleteBossItem(item){
         if(window.confirm(`您确定要删除${item}吗？`)){
-            this.props.deleteBoss(item)
+            // 异步请求，删除boss吧！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
+            // this.props.deleteBoss(item)
         }
     }
 
@@ -33,7 +32,8 @@ class BaseDataList extends Component {
     deleteCharacterItem(item){
         if(window.confirm(`您确定要删除${item}吗？`)){
             let characterObj = {name:item}
-            this.props.deleteCharacter(characterObj)
+            // 异步请求，删除角色 ！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
+            // this.props.deleteCharacter(characterObj)
         }
     }
 
@@ -70,12 +70,14 @@ class BaseDataList extends Component {
         this.setState({
             bossItem:''
         })
-        this.props.addBoss(this.state.bossItem)
+        // 异步请求，添加boss ！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
+        // this.props.addBoss(this.state.bossItem)
     }
 
     // 点击添加角色
     handleAddCharacterBtn(){
-        this.props.addCharacter(this.state.characterItem)
+        // 异步请求，添加角色 ！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
+        // this.props.addCharacter(this.state.characterItem)
         this.setState({
             characterItem:''
         })
@@ -87,18 +89,23 @@ class BaseDataList extends Component {
             && window.confirm('您确定要删除全部boss的数据吗，此行为不可逆,(需确认三次，第二次确认)')
             && window.confirm('您确定要删除全部boss的数据吗，此行为不可逆,(需确认三次，第三次确认)')
         if(!flag) return false
-        this.props.clearBossList()
+        // 异步请求，清除boss列表 ！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
+        // this.props.clearBossList()
     }
     render() {
         // 解析boss列表
-        const bossList = this.props.bossData.map((bossItem)=>{
-            return bossItem
-        })
+        // 异步请求，请求boss数据 ！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
+        // const bossList = this.props.bossData.map((bossItem)=>{
+        //     return bossItem
+        // })
+        const bossList = ['一王','二王']
         
         // 解析角色列表
-        const characterList = this.props.characterData.map((characterItem)=>{
-            return characterItem.name
-        })
+        // 异步请求，请求角色数据！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
+        // const characterList = this.props.characterData.map((characterItem)=>{
+        //     return characterItem.name
+        // })
+        const characterList = ['狗拳','狼姐','猫拳']
 
         // 添加boss的输入框
         const addBossItem = (
@@ -167,56 +174,5 @@ class BaseDataList extends Component {
     }
 }
 
-const mapSateToProps = (state)=>{
-    return {
-        bossData:state.bossData,
-        characterData:state.characterData
-    }
-}
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        // 添加boss
-        addBoss(bossMsg){
-            const action={
-                type:ADD_BOSS_ITEM,
-                value:bossMsg
-            }
-            dispatch(action)
-        },
-        // 添加角色
-        addCharacter(characterMsg){
-            const action={
-                type:ADD_CHARACTER_ITEM,
-                value:characterMsg
-            }
-            dispatch(action)
-        },
-        // 删除boss
-        deleteBoss(bossMsg){
-            const action = {
-                type:DELETE_BOSS_ITEM,
-                value: bossMsg
-            }
-            dispatch(action)
-        },
-        // 删除角色
-        deleteCharacter(characterObj){
-            const action = {
-                type:DELETE_CHARACTER_ITEM,
-                value: characterObj
-            }
-            dispatch(action)
-        },
-        // 清除boss列表
-        clearBossList(){
-            const action={
-                type:CLEAR_BOSS_LIST
-            }
-            dispatch(action)
-        }
-        
-    }
-}
-
-export default connect(mapSateToProps,mapDispatchToProps)(BaseDataList)
+export default BaseDataList

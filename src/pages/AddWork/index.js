@@ -1,10 +1,7 @@
 import React, { Component } from 'react'
 import { Form, Select, Button,Input  } from 'antd';
-import { connect } from 'react-redux'
 import { Link } from 'react-router-dom';
 import ImageUploader from './ImageUpload';
-
-import {ADD_WORK} from 'store/ActionType'
 
 import './index.css'
 
@@ -19,7 +16,12 @@ class AddWork extends Component {
             characterList:[],
             damage:null,
             workMessage:'',
-            workType:'image'
+            workType:'image',
+            characterData:[
+                {name:'狗'},
+                {name:'狼'}
+            ],
+            bossData:['一王','二王']
         }
         
     }
@@ -71,7 +73,9 @@ class AddWork extends Component {
         }else if(!data.workMessage){
             alert('请输入该作业所对应的轴')
         }else{
-            this.props.addWork(this.state)
+
+            // 进行异步请求，将作业信息发到后端 ！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
+
             alert('添加成功！')
             this.props.history.push('/workList')
         }
@@ -107,7 +111,7 @@ class AddWork extends Component {
                         
                     >
                         {
-                            this.props.bossData.map((bossItem,index)=>{
+                            this.state.bossData.map((bossItem,index)=>{
                                 let stage = String.fromCharCode(65+bossItem.stage-1)
                                 return (
                                     <Option key={index} value={bossItem}>
@@ -126,7 +130,7 @@ class AddWork extends Component {
                         onChange={(characterList)=>{this.handleCharacterChange(characterList)}}
                         >
                             {
-                                this.props.characterData.map((characterItem,index)=>{
+                                this.state.characterData.map((characterItem,index)=>{
                                     return <Option key={index} value={characterItem.name}>{characterItem.name}</Option>
                                 })
                             }
@@ -169,23 +173,6 @@ class AddWork extends Component {
     }
 }
 
-const mapSateToProps = (state)=>{
-    return {
-        bossData: state.bossData,
-        characterData: state.characterData
-    }
-}
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        addWork(workData){
-            let action = {
-                type:ADD_WORK,
-                value:workData
-            }
-            dispatch(action)
-        }
-    }
-}
 
-export default connect(mapSateToProps,mapDispatchToProps)(AddWork)
+export default AddWork
