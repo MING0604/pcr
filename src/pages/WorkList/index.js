@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import { Collapse, Modal } from 'antd';
+
 import MM from 'util/MM'
+import DropDownMenu from 'modules/DropDownMenu'
+
 import './index.css'
 
 const _mm = new MM()
@@ -41,6 +44,7 @@ class WorkList extends Component {
         const { Panel } = Collapse;
         return (
             <div>
+                <DropDownMenu />
                 <div className="work-list">
                     <Collapse >
                         {

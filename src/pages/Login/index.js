@@ -1,7 +1,11 @@
 import React, { Component } from 'react'
 import { Form, Input, Button } from 'antd';
 
+import MM from 'util/MM'
+
 import './index.css'
+
+const _mm = new MM()
 
 class Login extends Component {
     constructor(props) {
@@ -29,24 +33,32 @@ class Login extends Component {
         }
     }
     // 登陆
-    login(){
+    async login(){
         if(!this.state.username){
             alert('用户名不能为空！')
         }else if(!this.state.password){
             alert('密码不能为空！')
         }else {
-            alert('登陆成功！')
-            localStorage.setItem('ifLogin',true)
-            window.history.back();
-            // 异步请求，登陆！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
-            // if(this.state.username == this.props.userMsg.username 
-            //     && this.state.password == this.props.userMsg.password){
-            //         alert('登陆成功！')
-            //         localStorage.setItem('ifLogin',true)
-            //         window.history.back();
-            // }else{
-            //     alert('用户名或密码错误')
-            // }
+            // alert('登陆成功！')
+            // localStorage.setItem('ifLogin',true)
+            // window.history.back();
+            // 异步请求，登陆
+
+            let res = await _mm.request({
+                type:'post',
+                url:'/login',
+                data:{
+                    username: this.state.username,
+                    password: this.state.password
+                }
+            })
+            if(res.status === 200){
+                alert('登陆成功！')
+                _mm.setCookie('isLogin',true,7)
+                window.history.back();
+            }else{
+                alert('用户名或密码错误')
+            }
         }
     }
 

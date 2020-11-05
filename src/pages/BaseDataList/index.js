@@ -3,6 +3,7 @@ import { List, Button, Divider, Input } from 'antd';
 import { Link } from 'react-router-dom'
 
 import MM from 'util/MM'
+import DropDownMenu from 'modules/DropDownMenu'
 
 import './index.css'
 
@@ -38,9 +39,9 @@ class BaseDataList extends Component {
     }
     async componentWillMount(){
         // 判断是否具有管理员权限
-        let ifLogin = localStorage.getItem('ifLogin')
+        let ifLogin = _mm.getCookie('isLogin')
         if(!ifLogin){
-            this.props.history.push('/login')
+            this.props.history.push('/pageLogin')
         }
         // 异步请求boss和角色数据
         this.getBossList()
@@ -185,45 +186,46 @@ class BaseDataList extends Component {
         )
 
         return (
-            <div className="base-data-list">
-                <Button type="primary" className='switch-btn'>
-                    <Link to='/'>返回首页</Link>
-                </Button>
-                <Button className="clear-boss-btn" onClick={()=>{this.clearBossList()}}>删除全部boss</Button>
-                <Divider orientation="left">Boss列表</Divider>
-                <List
-                    className="list"
-                    size="small"
-                    bordered
-                    dataSource={bossList}
-                    footer={addBossItem}
-                    renderItem={item => (
-                        <List.Item>
-                            {item}
-                            <Button type="danger" 
-                                className='delete-btn'
-                                onClick={()=>{this.deleteBossItem(item)}}>删除</Button>
-                        </List.Item>
-                    )}
-                    />
-                <Divider orientation="left">角色列表</Divider>
-                <List
-                    className="list"
-                    size="small"
-                    bordered
-                    dataSource={characterList}
-                    footer={addCharacterItem}
-                    renderItem={item => (
-                        <List.Item>
-                            {item}
-                            <Button type="danger" 
-                                className='delete-btn'
-                                onClick={()=>{this.deleteCharacterItem(item)}}>删除</Button>
-                        </List.Item>
-                    )}
-                    />
+            <div>
+                <DropDownMenu />
+                <div className="base-data-list">
+                    <Button className="clear-boss-btn" onClick={()=>{this.clearBossList()}}>删除全部boss</Button>
+                    <Divider orientation="left">Boss列表</Divider>
+                    <List
+                        className="list"
+                        size="small"
+                        bordered
+                        dataSource={bossList}
+                        footer={addBossItem}
+                        renderItem={item => (
+                            <List.Item>
+                                {item}
+                                <Button type="danger" 
+                                    className='delete-btn'
+                                    onClick={()=>{this.deleteBossItem(item)}}>删除</Button>
+                            </List.Item>
+                        )}
+                        />
+                    <Divider orientation="left">角色列表</Divider>
+                    <List
+                        className="list"
+                        size="small"
+                        bordered
+                        dataSource={characterList}
+                        footer={addCharacterItem}
+                        renderItem={item => (
+                            <List.Item>
+                                {item}
+                                <Button type="danger" 
+                                    className='delete-btn'
+                                    onClick={()=>{this.deleteCharacterItem(item)}}>删除</Button>
+                            </List.Item>
+                        )}
+                        />
+                </div>
+        
             </div>
-        )
+            )
     }
 }
 

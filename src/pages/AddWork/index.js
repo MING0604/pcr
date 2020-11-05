@@ -3,6 +3,7 @@ import { Form, Select, Button,Input  } from 'antd';
 import { Link } from 'react-router-dom';
 import ImageUploader from './ImageUpload';
 import MM from 'util/MM'
+import DropDownMenu from 'modules/DropDownMenu'
 
 import axios from 'axios'
 
@@ -120,79 +121,79 @@ class AddWork extends Component {
 
     render() {
         return (
-            <div className="addWork">
-                <Button type="primary" className="switchBtn">
-                    <Link to='/baseDataList'>添加/修改Boss/角色信息</Link>
-                </Button>
-                <Form  name="nest-messages" className="addWorkFrom" >
-                    <Form.Item label="boss" >
-                    <Select
-                        showSearch
-                        style={{ width: 200 }}
-                        placeholder="选择作业boss"
-                        onChange={(bossName)=>{this.handleBossChange(bossName)}}
-                        
-                    >
-                        {
-                            this.state.bossData.map((bossItem,index)=>{
-                                let stage = String.fromCharCode(65+bossItem.stage-1)
-                                return (
-                                    <Option key={index} value={bossItem}>
-                                        {bossItem}
-                                    </Option>
-                                )
-                            })
-                        }
-                    </Select>
-                    </Form.Item>
-                    <Form.Item label="阵容" >
+            <div>
+                <DropDownMenu />
+                <div className="addWork">
+                    <Form  name="nest-messages" className="addWorkFrom" >
+                        <Form.Item label="boss" >
                         <Select
-                        mode="multiple"
-                        allowClear
-                        placeholder="选择阵容角色"
-                        onChange={(characterList)=>{this.handleCharacterChange(characterList)}}
+                            showSearch
+                            style={{ width: 200 }}
+                            placeho lder="选择作业boss"
+                            onChange={(bossName)=>{this.handleBossChange(bossName)}}
+                            
                         >
                             {
-                                this.state.characterData.map((characterItem,index)=>{
-                                    return <Option key={index} value={characterItem.name}>{characterItem.name}</Option>
+                                this.state.bossData.map((bossItem,index)=>{
+                                    let stage = String.fromCharCode(65+bossItem.stage-1)
+                                    return (
+                                        <Option key={index} value={bossItem}>
+                                            {bossItem}
+                                        </Option>
+                                    )
                                 })
                             }
                         </Select>
-                    </Form.Item>
-                    <Form.Item label="标伤" >
-                        <Input style={{ width: 200 }} 
-                            addonAfter="W" 
-                            placeholder="预期伤害" 
-                            onChange={(e)=>{this.handleDamageChange(e)}} 
-                            value={this.state.damage}
-                            />
-                    </Form.Item>
-                    <Form.Item label="作业类型" >
-                        <Button name='image' disabled onClick={(e)=>{this.handleType(e.target.name)}}>图片</Button> 
-                        <Button name='url' onClick={(e)=>{this.handleType(e.target.name)}}>链接</Button> 
-                    </Form.Item>
-                    {
-                        this.state.workType == 'image'
-                        ?
-                        <ImageUploader handleWork={(workMessage)=>{this.handleWork(workMessage)}} />
-                        :
-                        <Form.Item >
-                            <Input placeholder="作业地址" 
-                                onChange={(e)=>{this.handleWork(e.target.value)}} 
+                        </Form.Item>
+                        <Form.Item label="阵容" >
+                            <Select
+                            mode="multiple"
+                            allowClear
+                            placeholder="选择阵容角色"
+                            onChange={(characterList)=>{this.handleCharacterChange(characterList)}}
+                            >
+                                {
+                                    this.state.characterData.map((characterItem,index)=>{
+                                        return <Option key={index} value={characterItem.name}>{characterItem.name}</Option>
+                                    })
+                                }
+                            </Select>
+                        </Form.Item>
+                        <Form.Item label="标伤" >
+                            <Input style={{ width: 200 }} 
+                                addonAfter="W" 
+                                placeholder="预期伤害" 
+                                onChange={(e)=>{this.handleDamageChange(e)}} 
+                                value={this.state.damage}
                                 />
                         </Form.Item>
-                    }
-                    <Form.Item >
-                        <Button type="primary" 
-                            htmlType="submit"
-                            onClick={()=>{this.onSubmit()}}>
-                        提交
-                        </Button>
-                    </Form.Item>
+                        <Form.Item label="作业类型" >
+                            <Button name='image' disabled onClick={(e)=>{this.handleType(e.target.name)}}>图片</Button> 
+                            <Button name='url' onClick={(e)=>{this.handleType(e.target.name)}}>链接</Button> 
+                        </Form.Item>
+                        {
+                            this.state.workType == 'image'
+                            ?
+                            <ImageUploader handleWork={(workMessage)=>{this.handleWork(workMessage)}} />
+                            :
+                            <Form.Item >
+                                <Input placeholder="作业地址" 
+                                    onChange={(e)=>{this.handleWork(e.target.value)}} 
+                                    />
+                            </Form.Item>
+                        }
+                        <Form.Item >
+                            <Button type="primary" 
+                                htmlType="submit"
+                                onClick={()=>{this.onSubmit()}}>
+                            提交
+                            </Button>
+                        </Form.Item>
 
-                </Form>
+                    </Form>
+                </div>
             </div>
-        )
+            )
     }
 }
 

@@ -12,10 +12,12 @@ module.exports = {
   },
   resolve: {
     alias: {
+      // 简写路径配置
       pages: path.resolve(__dirname,'src/pages'),
       // page:'./src/pages',
       store: path.resolve(__dirname,'store'),
-      util: path.resolve(__dirname,'src/util')
+      util: path.resolve(__dirname,'src/util'),
+      modules: path.resolve(__dirname,'src/modules')
     }
   },
   module: {
@@ -127,6 +129,10 @@ module.exports = {
           changeOrigin: true
         },
         '/getWork':{
+          target: 'http://127.0.0.1:8081',
+          changeOrigin: true
+        },
+        '/login':{
           target: 'http://127.0.0.1:8081',
           changeOrigin: true
         },

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import DropDownMenu from 'modules/DropDownMenu'
 
 class App extends Component {
     constructor(props) {
@@ -13,9 +14,8 @@ class App extends Component {
     render() {
         return (
             <div>
-                <Link to='/newWork'>添加作业</Link>
-                <br></br>
-                <Link to='/workList'>查看作业</Link>
+                <DropDownMenu />
+                <h1>很精美的首页</h1>
             </div>
         )
     }

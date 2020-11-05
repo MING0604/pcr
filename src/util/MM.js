@@ -92,6 +92,22 @@ class MM {
         });
     } 
 
+    // 设置cookie time为秒
+    setCookie(name,value,time)
+    {
+        var exp = new Date(); 
+        exp.setTime(exp.getTime() + time*24*60*60*1000);
+        document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString();
+    }
+    /**
+     * [getCookie 获取cookie]
+     */
+    getCookie(name)
+    {
+        var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+        if(arr=document.cookie.match(reg)) return unescape(arr[2]);
+        else return null;
+    }
     
 }
 
