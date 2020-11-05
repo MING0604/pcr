@@ -13,7 +13,7 @@ class App extends Component {
     render() {
         return (
             <div>
-                <Link to='/addWork'>添加作业</Link>
+                <Link to='/newWork'>添加作业</Link>
                 <br></br>
                 <Link to='/workList'>查看作业</Link>
             </div>

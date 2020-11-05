@@ -18,6 +18,24 @@ class MM {
         })
     }
 
+    // 上传图片
+    pushImg(file){
+        return new Promise((resolve,reject)=>{
+            let fromdata = new FormData()
+            fromdata.append('img',file)
+            let config = {
+                headers: {'Content-Type': 'multipart/form-data'}
+            }
+            axios.post('/pushImg',fromdata,config)
+            .then(res=>{
+                resolve(res.data)
+            })
+            .catch(err=>{
+                reject(err)
+            })
+        })
+    }
+
     // 仅根据伤害排序
     sortOnDamage(workList){
         workList.sort((next,prev)=>{
@@ -64,6 +82,15 @@ class MM {
         return workList
     }
 
+    // 解析将图片为base64编码
+    getBase64(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = error => reject(error);
+        });
+    } 
 
     
 }

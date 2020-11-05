@@ -110,6 +110,26 @@ module.exports = {
           target: 'http://127.0.0.1:8081',
           changeOrigin: true
         },
+        '/addCharacter' :{
+          target: 'http://127.0.0.1:8081',
+          changeOrigin: true
+        },
+        '/deleteCharacter' :{
+          target: 'http://127.0.0.1:8081',
+          changeOrigin: true
+        },
+        '/addWork':{
+          target: 'http://127.0.0.1:8081',
+          changeOrigin: true
+        },
+        '/deleteWork':{
+          target: 'http://127.0.0.1:8081',
+          changeOrigin: true
+        },
+        '/getWork':{
+          target: 'http://127.0.0.1:8081',
+          changeOrigin: true
+        },
       }
   }
 };

@@ -18,6 +18,7 @@ class WorkList extends Component {
         let workList = await _mm.request({
             url:'/getWork'
         })
+        console.log(workList)
         this.setState({
             workList
         })

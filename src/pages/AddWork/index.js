@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import ImageUploader from './ImageUpload';
 import MM from 'util/MM'
 
+import axios from 'axios'
+
 import './index.css'
 
 const _mm = new MM()
@@ -18,7 +20,7 @@ class AddWork extends Component {
             characterList:[],
             damage:null,
             workMessage:'',
-            workType:'image',
+            workType:'url',
             characterData:[],
             bossData:[]
         }
@@ -86,8 +88,15 @@ class AddWork extends Component {
             alert('请输入该作业所对应的轴')
         }else{
 
-            // 进行异步请求，将作业信息发到后端 ！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
-
+            // 进行异步请求，将作业信息发到后端 
+            
+            delete data.bossData
+            delete data.characterData
+            _mm.request({
+                type:'post',
+                url:'/addWork',
+                data
+            })
             alert('添加成功！')
             this.props.history.push('/workList')
         }
@@ -106,7 +115,9 @@ class AddWork extends Component {
         this.setState({
             workMessage
         })
+
     }
+
     render() {
         return (
             <div className="addWork">
@@ -157,7 +168,7 @@ class AddWork extends Component {
                             />
                     </Form.Item>
                     <Form.Item label="作业类型" >
-                        <Button name='image' onClick={(e)=>{this.handleType(e.target.name)}}>图片</Button> 
+                        <Button name='image' disabled onClick={(e)=>{this.handleType(e.target.name)}}>图片</Button> 
                         <Button name='url' onClick={(e)=>{this.handleType(e.target.name)}}>链接</Button> 
                     </Form.Item>
                     {

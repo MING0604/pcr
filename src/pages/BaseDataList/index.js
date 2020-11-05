@@ -18,6 +18,24 @@ class BaseDataList extends Component {
             bossData:[]
         }
     }
+    // 获取boss列表
+    async getBossList(){
+        let bossData = await _mm.request({
+            url:'/getBoss'
+        })
+        this.setState({
+            bossData
+        })
+    }
+    // 获取角色列表
+    async getCharacterList(){
+        let characterData = await _mm.request({
+            url:'/getCharacter'
+        })
+        this.setState({
+            characterData
+        })
+    }
     async componentWillMount(){
         // 判断是否具有管理员权限
         let ifLogin = localStorage.getItem('ifLogin')
@@ -25,16 +43,8 @@ class BaseDataList extends Component {
             this.props.history.push('/login')
         }
         // 异步请求boss和角色数据
-        let bossData = await _mm.request({
-            url:'/getBoss'
-        })
-        let characterData = await _mm.request({
-            url:'/getCharacter'
-        })
-        this.setState({
-            characterData,
-            bossData
-        })
+        this.getBossList()
+        this.getCharacterList()
     }
     // 删除boss数据
     async deleteBossItem(item){
@@ -46,21 +56,21 @@ class BaseDataList extends Component {
                 url:'/deleteBoss',
                 data:item
             })
-            let bossData = await _mm.request({
-                url:'/getBoss'
-            })
-            this.setState({
-                bossData
-            })
+            this.getBossList()
         }
     }
 
     // 删除角色数据
-    deleteCharacterItem(item){
+    async deleteCharacterItem(item){
         if(window.confirm(`您确定要删除${item}吗？`)){
             let characterObj = {name:item}
-            // 异步请求，删除角色 ！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
-            // this.props.deleteCharacter(characterObj)
+            // 异步请求，删除角色 
+            await _mm.request({
+                type:'post',
+                url:'/deleteCharacter',
+                data:characterObj
+            })
+            this.getCharacterList()
         }
     }
 
@@ -98,37 +108,43 @@ class BaseDataList extends Component {
             bossItem:''
         })
         // 异步请求，添加boss 
-        // this.props.addBoss(this.state.bossItem)
-        await _mm.request({
+        if(!this.state.bossItem){
+            return 
+        }
+        let resMsg = await _mm.request({
             type:'post',
             url:'/addBoss',
             data:this.state.bossItem
         })
-        let bossData = await _mm.request({
-            url:'/getBoss'
-        })
-        this.setState({
-            bossData
-        })
+        this.getBossList()
+        alert(resMsg.msg)
     }
 
     // 点击添加角色
-    handleAddCharacterBtn(){
-        // 异步请求，添加角色 ！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
-        // this.props.addCharacter(this.state.characterItem)
+    async handleAddCharacterBtn(){
+        // 异步请求，添加角色 
+        await _mm.request({
+            type:'post',
+            url:'/addCharacter',
+            data:this.state.characterItem
+        })
+        this.getCharacterList()
         this.setState({
             characterItem:''
         })
     }
 
     // 清除boss列表
-    clearBossList(){
+    async clearBossList(){
         const flag = window.confirm('您确定要删除全部boss的数据吗，此行为不可逆,(需确认三次，第一次确认)') 
             && window.confirm('您确定要删除全部boss的数据吗，此行为不可逆,(需确认三次，第二次确认)')
             && window.confirm('您确定要删除全部boss的数据吗，此行为不可逆,(需确认三次，第三次确认)')
         if(!flag) return false
-        // 异步请求，清除boss列表 ！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
-        // this.props.clearBossList()
+        // 异步请求，清除boss列表
+        _mm.request({
+            url:'/clearBoss'
+        })
+        this.getBossList()
     }
     render() {
         // 解析boss列表
@@ -136,6 +152,7 @@ class BaseDataList extends Component {
         const bossList = this.state.bossData.map((bossItem)=>{
             return bossItem
         })
+        
         
         // 解析角色列表
         // 异步请求，请求角色数据
