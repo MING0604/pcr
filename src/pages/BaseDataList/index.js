@@ -19,6 +19,17 @@ class BaseDataList extends Component {
             bossData:[]
         }
     }
+    async componentWillMount(){
+        // 判断是否具有管理员权限
+        let isManager = await _mm.isManager()
+        if(!isManager) {
+            this.props.history.push('/pageLogin')
+            return
+        }
+        // 异步请求boss和角色数据
+        this.getBossList()
+        this.getCharacterList()
+    }
     // 获取boss列表
     async getBossList(){
         let bossData = await _mm.request({
@@ -37,21 +48,10 @@ class BaseDataList extends Component {
             characterData
         })
     }
-    async componentWillMount(){
-        // 判断是否具有管理员权限
-        let ifLogin = _mm.getCookie('isLogin')
-        if(!ifLogin){
-            this.props.history.push('/pageLogin')
-        }
-        // 异步请求boss和角色数据
-        this.getBossList()
-        this.getCharacterList()
-    }
     // 删除boss数据
     async deleteBossItem(item){
         if(window.confirm(`您确定要删除${item}吗？`)){
             // 异步请求，删除boss
-            // this.props.deleteBoss(item)
             await _mm.request({
                 type:'post',
                 url:'/deleteBoss',
@@ -189,7 +189,7 @@ class BaseDataList extends Component {
             <div>
                 <DropDownMenu />
                 <div className="base-data-list">
-                    <Button className="clear-boss-btn" onClick={()=>{this.clearBossList()}}>删除全部boss</Button>
+                    <Button className="clear-boss-btn" onClick={()=>{this.clearBossList()}} type="danger" >删除全部boss</Button>
                     <Divider orientation="left">Boss列表</Divider>
                     <List
                         className="list"

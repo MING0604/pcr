@@ -2,7 +2,21 @@
   margin: 50px auto;
   width: 60%;
 }
-.work-list .work-item {
+.work-list .work-item-header {
   display: flex;
   justify-content: space-around;
+}
+.work-list .work-item-header .bossName {
+  width: 20%;
+}
+.work-list .work-item-header .characterList {
+  width: 40%;
+}
+.work-list .work-item-header .damage {
+  width: 20%;
+}
+.work-list .delete-work-btn {
+  float: right;
+  position: relative;
+  top: -6px;
 }

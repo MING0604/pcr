@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Collapse, Modal } from 'antd';
+import { Collapse, Modal, Button } from 'antd';
 
 import MM from 'util/MM'
 import DropDownMenu from 'modules/DropDownMenu'
@@ -13,15 +13,31 @@ class WorkList extends Component {
 
         this.state = {
             previewVisible: false,
-            workList:[]
+            workList:[],
+            isManager:false
         }
     }
-    // 异步请求作业列表
-    async componentDidMount(){
+    // 初始化列表
+    componentDidMount(){
+        // 判断用户是否登陆
+        let isUser = _mm.isUser()
+        if(!isUser){
+            this.props.history.push('/pageLogin')
+            return
+        }
+        // 查看用户权限
+        let isManager = _mm.getCookie('isManager')
+        this.setState({
+            isManager
+        })
+        this.getWorkList()
+    }
+    // 异步并同步请求作业列表
+    async getWorkList(){
         let workList = await _mm.request({
             url:'/getWork'
         })
-        console.log(workList)
+        _mm.sortOnBossAndDamage(workList)
         this.setState({
             workList
         })
@@ -39,7 +55,25 @@ class WorkList extends Component {
     handleCancel(){
         this.setState({ previewVisible: false });  
     }
-
+    // 删除作业
+    async deleteWork(e){
+        let flag = window.confirm('确定要删除这个作业吗')
+        if(!flag) return
+        let targetNode = e.target.parentNode.parentNode.parentNode
+        let arr = targetNode.className.split(' ')
+        let wid = parseInt(arr[arr.length - 1])
+        let res = await _mm.request({
+            type:'post',
+            url:'/deleteWork',
+            data:wid
+        })
+        if(res.status === 200){
+            alert('删除成功')
+        }else{
+            alert('在删除的过程中出现了bug，请联系手捧初梦(管理人)')
+        }
+        this.getWorkList()
+    }
     render() {
         const { Panel } = Collapse;
         return (
@@ -56,14 +90,14 @@ class WorkList extends Component {
                                     workType = workItem.workType,
                                     wid = workItem.wid
                                 let header = (
-                                    <div className="work-item">
-                                        <div>{`boss： ${bossName}`}</div>
-                                        <div>{`阵容： ${characterList}`}</div>
-                                        <div>{`标伤： ${damage}`}</div>
+                                    <div className="work-item-header">
+                                        <div className="bossName">{`boss： ${bossName}`}</div>
+                                        <div className="characterList">{`阵容： ${characterList}`}</div>
+                                        <div className="damage">{`标伤： ${damage}W`}</div>
                                     </div>
                                 )
                                 return (
-                                    <Panel key={wid} header={header}>
+                                    <Panel key={wid} header={header} data-wid={wid} className={wid}>
                                         {
                                             workType == 'url'
                                             ?
@@ -80,6 +114,14 @@ class WorkList extends Component {
                                                     <img alt="example" style={{ width: '100%' }} src={this.state.previewImg} />
                                                 </Modal>
                                             </div>
+                                        }
+                                        {
+                                            this.state.isManager
+                                            ?
+                                            <Button type="danger" className="delete-work-btn" onClick={(e)=>{this.deleteWork(e)}}>删除该作业</Button>
+                                            :
+                                            null
+
                                         }
                                     </Panel>
                                 )

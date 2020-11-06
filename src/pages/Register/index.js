@@ -8,13 +8,14 @@ import './index.css'
 
 const _mm = new MM()
 
-class Login extends Component {
+class Register extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
             username:'',
-            password:''
+            password1:'',
+            password2:''
         }
     }
 
@@ -37,21 +38,31 @@ class Login extends Component {
     async login(){
         if(!this.state.username){
             alert('用户名不能为空！')
-        }else if(!this.state.password){
+        }else if(!this.state.password1){
             alert('密码不能为空！')
+        }else if(!this.state.password2){
+            alert('确认密码不能为空！')
+        }else if(this.state.password1 !== this.state.password2){
+            alert('两次输入的密码不一致')
         }else {
-
-            // 异步请求，登陆
-            let success = await _mm.login(this.state.username,this.state.password)
-            if(success) {
+            // 异步请求，注册
+            let res = await _mm.request({
+                type:'post',
+                url:'/register',
+                data:{
+                    username: this.state.username,
+                    password: this.state.password2,
+                    isManager:false,
+                    isOwner: false
+                }
+            })
+            if(res.status === 200){
+                alert('注册成功！')
                 window.history.back()
+            }else{
+                alert('用户名已被申请')
             }
         }
-    }
-
-    // 注册
-    register(){
-        this.props.history.push('/pageRegister')
     }
 
     render() {
@@ -73,16 +84,23 @@ class Login extends Component {
                     className="login-from-item"
                     >
                     <Input.Password placeholder = "请输入密码"
-                        name="password"
+                        name="password1"
+                        onChange={(e)=>{this.handleInputChange(e)}}
+                        onKeyUp={(e)=>{this.handleKeyUp(e)}}/>
+                </Form.Item>
+
+                <Form.Item
+                    label="确认密码"
+                    className="login-from-item"
+                    >
+                    <Input.Password placeholder = "确认密码"
+                        name="password2"
                         onChange={(e)=>{this.handleInputChange(e)}}
                         onKeyUp={(e)=>{this.handleKeyUp(e)}}/>
                 </Form.Item>
 
                 <Form.Item>
-                    <Button className="login-btn" type="primary" onClick={()=>{this.login()}}>
-                        登陆
-                    </Button>
-                    <Button className="register-btn" type="primary" onClick={()=>{this.register()}}>
+                    <Button type="primary" onClick={()=>{this.login()}}>
                         注册
                     </Button>
                 </Form.Item>
@@ -93,4 +111,4 @@ class Login extends Component {
 
 
 
-export default Login
+export default Register

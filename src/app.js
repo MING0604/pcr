@@ -6,6 +6,8 @@ import AddWork from 'pages/AddWork'
 import WorkList from 'pages/WorkList'
 import BaseDataList from 'pages/BaseDataList'
 import Login from 'pages/Login'
+import Register from 'pages/Register'
+import UserControl from 'pages/UserControl'
 import './index.css'
 
 import 'antd/dist/antd.css'
@@ -20,6 +22,8 @@ ReactDom.render(
                         <Route path='/workList' component={WorkList}/>
                         <Route path='/baseDataList' component={BaseDataList}/>
                         <Route path='/pageLogin' component={Login}/>
+                        <Route path='/pageRegister' component={Register}/>
+                        <Route path='/userControl' component={UserControl}/>
                     </Switch>
                 )
             }}/>

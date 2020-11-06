@@ -99,16 +99,88 @@ class MM {
         exp.setTime(exp.getTime() + time*24*60*60*1000);
         document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString();
     }
-    /**
-     * [getCookie 获取cookie]
-     */
+    // 获取cookie
     getCookie(name)
     {
         var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
         if(arr=document.cookie.match(reg)) return unescape(arr[2]);
         else return null;
     }
+    // 销毁cookie
+    deleteCookie (cookieName) {
+        document.cookie = `${cookieName}=; expires=${new Date(0).toGMTString()}`
+    }
+
+    // 登陆
+    async login(username,password){
+        let res = await this.request({
+            type:'post',
+            url:'/login',
+            data:{
+                username: username,
+                password: password
+            }
+        })
+        if(res.status === 400){
+            alert('登陆成功！')
+            this.setCookie('isOwner',true,1)
+            this.setCookie('isManager',true,1)
+            this.setCookie('isUser',true,7)
+            this.setCookie('username',res.username,7)
+            return true
+        }else if(res.status === 300){
+            alert('登陆成功！')
+            this.setCookie('isManager',true,1)
+            this.setCookie('isUser',true,7)
+            this.setCookie('username',res.username,7)
+            return true
+        }else if(res.status === 200){
+            alert('登陆成功！')
+            this.setCookie('isUser',true,7)
+            this.setCookie('username',res.username,7)
+            return true
+        }else{
+            alert('用户名或密码错误')
+            return false
+        }
+    }
+    // 退出登陆
+    logout(){
+        this.deleteCookie('isOwner')
+        this.deleteCookie('isManager')
+        this.deleteCookie('isUser')
+        this.deleteCookie('username')
+        window.location.reload()
+    }
     
+    // 是否具有用户权限
+    isUser(){
+        let isUser = this.getCookie('isUser')
+        if(!isUser){
+            alert('请登录')
+            return false
+        }
+        return true
+    }
+    // 是否具有管理员权限
+    isManager(){
+        let isManager = this.getCookie('isManager')
+        if(!isManager){
+            alert('权限不足！')
+            return false
+        }
+        return true
+    }
+    // 是否具有拥有者权限
+    isOwner(){
+        let isOwner = this.getCookie('isOwner')
+        if(!isOwner){
+            alert('权限不足！')
+            return false
+        }
+        return true
+    }
+
 }
 
 export default MM

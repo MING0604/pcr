@@ -13,6 +13,8 @@
 }
 .base-data-list .list .delete-btn {
   float: right;
+  position: relative;
+  top: -6px;
 }
 .base-data-list .list .add-btn {
   margin-left: 10px;
@@ -24,6 +26,6 @@
 }
 .base-data-list .clear-boss-btn {
   position: absolute;
-  right: -20px;
+  right: -40px;
   top: 54px;
 }

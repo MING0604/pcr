@@ -3,3 +3,7 @@
   top: 70px;
   left: 50px;
 }
+.DropDownMenu .username {
+  display: inline-block;
+  margin-right: 20px;
+}

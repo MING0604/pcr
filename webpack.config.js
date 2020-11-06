@@ -88,10 +88,6 @@ module.exports = {
         index: '/dist/index.html'
       },
       proxy:{
-        '/getWork' :{
-          target: 'http://127.0.0.1:8081',
-          changeOrigin: true
-        },
         '/getCharacter' :{
           target: 'http://127.0.0.1:8081',
           changeOrigin: true
@@ -136,6 +132,30 @@ module.exports = {
           target: 'http://127.0.0.1:8081',
           changeOrigin: true
         },
+        '/register':{
+          target: 'http://127.0.0.1:8081',
+          changeOrigin: true
+        },
+        '/getUserListMsg':{
+          target: 'http://127.0.0.1:8081',
+          changeOrigin: true
+        },
+        '/deleteManager':{
+          target: 'http://127.0.0.1:8081',
+          changeOrigin: true
+        },
+        '/addManager':{
+          target: 'http://127.0.0.1:8081',
+          changeOrigin: true
+        },
+        '/deleteOwner':{
+          target: 'http://127.0.0.1:8081',
+          changeOrigin: true
+        },
+        '/addOwner':{
+          target: 'http://127.0.0.1:8081',
+          changeOrigin: true
+        }
       }
   }
 };

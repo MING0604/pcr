@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Upload, Modal } from 'antd';
+import axios from 'axios';
 
 class Test extends Component {
     constructor(props) {
@@ -49,7 +50,7 @@ class Test extends Component {
         return (
             <div>
                 <Upload
-                action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                action="https://sm.ms/api/v2/upload"
                 listType="picture-card"
                 fileList={fileList}
                 onPreview={(file)=>{this.handlePreview(file)}}

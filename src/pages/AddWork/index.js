@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
 import { Form, Select, Button,Input  } from 'antd';
-import { Link } from 'react-router-dom';
 import ImageUploader from './ImageUpload';
 import MM from 'util/MM'
 import DropDownMenu from 'modules/DropDownMenu'
 
-import axios from 'axios'
 
 import './index.css'
 
@@ -28,8 +26,14 @@ class AddWork extends Component {
         
     }
 
-    // 异步请求角色和boss数据
     async componentDidMount(){
+        // 判断用户是否登陆
+        let isUser = _mm.isUser()
+        if(!isUser){
+            this.props.history.push('/pageLogin')
+            return
+        }
+        // 异步请求角色和boss数据
         let characterData = await _mm.request({
             url:'/getCharacter'
         })
@@ -77,6 +81,7 @@ class AddWork extends Component {
 
     // 提交作业
     onSubmit(){
+        let urlReg = /((http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&:/~\+#]*[\w\-\@?^=%&/~\+#])?)/
         let data = this.state
         // 判断作业是否完整
         if(data.bossName==''){
@@ -87,8 +92,10 @@ class AddWork extends Component {
             alert('请输入该作业的预期伤害')
         }else if(!data.workMessage){
             alert('请输入该作业所对应的轴')
-        }else{
-
+        }else if(data.workType === 'url' && !urlReg.test(data.workMessage)){
+              alert('请输入完整有效的作业链接')  
+        }else {
+            
             // 进行异步请求，将作业信息发到后端 
             
             delete data.bossData
@@ -135,7 +142,7 @@ class AddWork extends Component {
                         >
                             {
                                 this.state.bossData.map((bossItem,index)=>{
-                                    let stage = String.fromCharCode(65+bossItem.stage-1)
+                                    // let stage = String.fromCharCode(65+bossItem.stage-1)
                                     return (
                                         <Option key={index} value={bossItem}>
                                             {bossItem}
