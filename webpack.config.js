@@ -124,7 +124,11 @@ module.exports = {
           target: 'http://127.0.0.1:8081',
           changeOrigin: true
         },
-        '/getWork':{
+        '/getWorkList':{
+          target: 'http://127.0.0.1:8081',
+          changeOrigin: true
+        },
+        '/getWorkItem':{
           target: 'http://127.0.0.1:8081',
           changeOrigin: true
         },

@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
-import { Collapse, Modal, Button } from 'antd';
+import { Collapse, Modal, Button, Empty } from 'antd';
+import { Link } from 'react-router-dom';
 
 import MM from 'util/MM'
 import DropDownMenu from 'modules/DropDownMenu'
+import SelectHeader from 'modules/SelectHeader';
 
 import './index.css'
 
@@ -35,7 +37,7 @@ class WorkList extends Component {
     // 异步并同步请求作业列表
     async getWorkList(){
         let workList = await _mm.request({
-            url:'/getWork'
+            url:'/getWorkList'
         })
         _mm.sortOnBossAndDamage(workList)
         this.setState({
@@ -56,12 +58,9 @@ class WorkList extends Component {
         this.setState({ previewVisible: false });  
     }
     // 删除作业
-    async deleteWork(e){
+    async deleteWork(wid){
         let flag = window.confirm('确定要删除这个作业吗')
         if(!flag) return
-        let targetNode = e.target.parentNode.parentNode.parentNode
-        let arr = targetNode.className.split(' ')
-        let wid = parseInt(arr[arr.length - 1])
         let res = await _mm.request({
             type:'post',
             url:'/deleteWork',
@@ -74,61 +73,91 @@ class WorkList extends Component {
         }
         this.getWorkList()
     }
+    // 筛选出想要的作业
+    async handleWorkSelect(selectObj){
+        await this.getWorkList()
+        let workList = this.state.workList
+        workList = _mm.selectWorkList(workList,selectObj)
+        this.setState({
+            workList
+        })
+
+    }
     render() {
         const { Panel } = Collapse;
+        const listDom = this.state.workList.map((workItem)=>{
+            let characterList = workItem.characterList.toString(),
+                bossName = workItem.bossName,
+                damage = workItem.damage,
+                workMessage = workItem.workMessage,
+                workType = workItem.workType,
+                wid = workItem.wid
+            let header = (
+                <div className="work-item-header">
+                    <div className="bossName">{`boss： ${bossName}`}</div>
+                    <div className="characterList">{`阵容： ${characterList}`}</div>
+                    <div className="damage">{`标伤： ${damage}W`}</div>
+                </div>
+            )
+            const managerBtn = (
+                <div className="managerBtn">
+                    <Button  >
+                        <Link to={`/newWork/${wid}`}>编辑该作业</Link>
+                    </Button>
+                    <Button type="danger" onClick={()=>{this.deleteWork(wid)}}>删除该作业</Button>
+                </div>
+            )
+            return (
+                <Panel key={wid} header={header} data-wid={wid} className={wid}>
+                    {
+                        workType == 'url'
+                        ?
+                        <a href={workMessage} target="_blank" >作业链接：{workMessage}</a>
+                        :
+                        <div>
+                            <img style={{width:"80px"}} 
+                                src={workMessage}
+                                onClick={()=>{this.showImg(workMessage)}}></img>
+                            <Modal
+                            visible={this.state.previewVisible}
+                            onCancel={()=>{this.handleCancel()}}
+                            >
+                                <img alt="example" style={{ width: '100%' }} src={this.state.previewImg} />
+                            </Modal>
+                        </div>
+                    }
+                    {
+                        this.state.isManager
+                        ?
+                            managerBtn
+                        :
+                        null
+
+                    }
+                </Panel>
+            )
+            
+        })
         return (
             <div>
                 <DropDownMenu />
+                <div className="select-header">
+                    <SelectHeader 
+                        handleWorkSelect={(selectObj)=>{this.handleWorkSelect(selectObj)}}/>
+                </div>
                 <div className="work-list">
                     <Collapse >
                         {
-                            this.state.workList.map((workItem)=>{
-                                let characterList = workItem.characterList.toString(),
-                                    bossName = workItem.bossName,
-                                    damage = workItem.damage,
-                                    workMessage = workItem.workMessage,
-                                    workType = workItem.workType,
-                                    wid = workItem.wid
-                                let header = (
-                                    <div className="work-item-header">
-                                        <div className="bossName">{`boss： ${bossName}`}</div>
-                                        <div className="characterList">{`阵容： ${characterList}`}</div>
-                                        <div className="damage">{`标伤： ${damage}W`}</div>
-                                    </div>
-                                )
-                                return (
-                                    <Panel key={wid} header={header} data-wid={wid} className={wid}>
-                                        {
-                                            workType == 'url'
-                                            ?
-                                            <a href={workMessage} target="_blank" >作业链接：{workMessage}</a>
-                                            :
-                                            <div>
-                                                <img style={{width:"80px"}} 
-                                                    src={workMessage}
-                                                    onClick={()=>{this.showImg(workMessage)}}></img>
-                                                <Modal
-                                                visible={this.state.previewVisible}
-                                                onCancel={()=>{this.handleCancel()}}
-                                                >
-                                                    <img alt="example" style={{ width: '100%' }} src={this.state.previewImg} />
-                                                </Modal>
-                                            </div>
-                                        }
-                                        {
-                                            this.state.isManager
-                                            ?
-                                            <Button type="danger" className="delete-work-btn" onClick={(e)=>{this.deleteWork(e)}}>删除该作业</Button>
-                                            :
-                                            null
-
-                                        }
-                                    </Panel>
-                                )
-                                
-                            })
+                            listDom
                         }
                     </Collapse>
+                    {
+                        this.state.workList.length
+                        ?
+                        null
+                        :
+                        <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+                    }
                 </div>
 
             </div>

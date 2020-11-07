@@ -1,5 +1,5 @@
 .work-list {
-  margin: 50px auto;
+  margin: 30px auto;
   width: 60%;
 }
 .work-list .work-item-header {
@@ -15,8 +15,14 @@
 .work-list .work-item-header .damage {
   width: 20%;
 }
-.work-list .delete-work-btn {
+.work-list .managerBtn {
+  width: 30%;
   float: right;
-  position: relative;
-  top: -6px;
+  margin-top: -5px;
+  display: flex;
+  justify-content: space-between;
+}
+.select-header {
+  margin: 0 auto;
+  width: 60%;
 }

@@ -21,7 +21,9 @@ class AddWork extends Component {
             workMessage:'',
             workType:'url',
             characterData:[],
-            bossData:[]
+            bossData:[],
+            isModify:false,
+            wid:0
         }
         
     }
@@ -44,6 +46,24 @@ class AddWork extends Component {
             characterData,
             bossData
         })
+        // 当具有wid时，请求响应wid对应的数据
+        if(this.props.match.params.wid){
+            let wid = parseInt(this.props.match.params.wid)
+            let res = await _mm.request({
+                type:'post',
+                url:'/getWorkItem',
+                data:wid
+            })
+            this.setState({
+                bossName:res.bossName,
+                damage:res.damage,
+                workMessage:res.workMessage,
+                workType:res.workType,
+                characterList:res.characterList,
+                isModify:true,
+                wid:res.wid
+            })
+        }
     }
     // 修改作业boss目标
     handleBossChange(bossName) {
@@ -80,7 +100,7 @@ class AddWork extends Component {
     }
 
     // 提交作业
-    onSubmit(){
+    async onSubmit(){
         let urlReg = /((http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&:/~\+#]*[\w\-\@?^=%&/~\+#])?)/
         let data = this.state
         // 判断作业是否完整
@@ -100,12 +120,23 @@ class AddWork extends Component {
             
             delete data.bossData
             delete data.characterData
-            _mm.request({
+            if(data.isModify){
+                await _mm.request({
+                    type:'post',
+                    url:'/deleteWork',
+                    data:data.wid
+                })
+            }
+            await _mm.request({
                 type:'post',
                 url:'/addWork',
                 data
             })
-            alert('添加成功！')
+            if(data.isModify){
+                alert('修改成功！')
+            }else{
+                alert('添加成功')
+            }
             this.props.history.push('/workList')
         }
         
@@ -138,7 +169,7 @@ class AddWork extends Component {
                             style={{ width: 200 }}
                             placeho lder="选择作业boss"
                             onChange={(bossName)=>{this.handleBossChange(bossName)}}
-                            
+                            value = {this.state.bossName}
                         >
                             {
                                 this.state.bossData.map((bossItem,index)=>{
@@ -158,6 +189,7 @@ class AddWork extends Component {
                             allowClear
                             placeholder="选择阵容角色"
                             onChange={(characterList)=>{this.handleCharacterChange(characterList)}}
+                            value={this.state.characterList}
                             >
                                 {
                                     this.state.characterData.map((characterItem,index)=>{
@@ -185,6 +217,7 @@ class AddWork extends Component {
                             :
                             <Form.Item >
                                 <Input placeholder="作业地址" 
+                                    value={this.state.workMessage}
                                     onChange={(e)=>{this.handleWork(e.target.value)}} 
                                     />
                             </Form.Item>

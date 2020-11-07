@@ -180,6 +180,80 @@ class MM {
         }
         return true
     }
+    // 根据selectObj筛选workList
+    selectWorkList(workList, selectObj){
+        let newWorkList = JSON.parse(JSON.stringify(workList));
+        let { bossSelect, characterSelect } = selectObj
+        newWorkList = this.selectWorkListOnBossSelect(newWorkList, bossSelect)
+        newWorkList = this.selectWorkListOnCharacterSelect(newWorkList, characterSelect)
+        return newWorkList
+    }
+    // 根据bossSelect筛选workList
+    selectWorkListOnBossSelect(workList, bossSelect){
+        let newWorkList;
+        if(bossSelect === "全部boss"){
+            newWorkList = workList
+        }else if(bossSelect === "A面boss"){
+            newWorkList = workList.filter((item)=>{
+                if(item.bossName[0]==='A'){
+                    return true
+                }else{
+                    return false
+                }
+            })
+        }else if(bossSelect === "B面boss"){
+            newWorkList = workList.filter((item)=>{
+                if(item.bossName[0]==='B'){
+                    return true
+                }else{
+                    return false
+                }
+            })
+        }else if(bossSelect === "C面boss"){
+            newWorkList = workList.filter((item)=>{
+                if(item.bossName[0]==='C'){
+                    return true
+                }else{
+                    return false
+                }
+            })
+        }else{ // 按照boss名称进行筛选
+            newWorkList = workList.filter((item)=>{
+                if(item.bossName === bossSelect){
+                    return true
+                }else{
+                    return false
+                }
+            })
+        }
+        return newWorkList
+
+    }
+    // 根据characterSelect筛选workList
+    selectWorkListOnCharacterSelect(workList, characterSelect){
+        let newWorkList;
+        if(!characterSelect.length){
+            newWorkList = workList
+        }else{
+            newWorkList = workList.filter((item,index)=>{
+                return !this.checkRepeat(item.characterList,characterSelect)
+            })
+        }
+        return newWorkList
+    }
+    // 判断两个数组是否有重复的元素 有重复的元素返回true
+    checkRepeat(arr1,arr2){
+        let hashMap = {}
+        for(let item of arr1){
+            hashMap[item] = true
+        }
+        for(let item of arr2){
+            if(hashMap[item]){
+                return true
+            }
+        }
+        return false
+    }
 
 }
 

@@ -18,7 +18,7 @@ ReactDom.render(
                 return(
                     <Switch>
                         <Route exact path='/' component={Home}/>
-                        <Route path='/newWork' component={AddWork}/>
+                        <Route path='/newWork/:wid?' component={AddWork}/>
                         <Route path='/workList' component={WorkList}/>
                         <Route path='/baseDataList' component={BaseDataList}/>
                         <Route path='/pageLogin' component={Login}/>
