@@ -55,7 +55,9 @@ class BaseDataList extends Component {
             await _mm.request({
                 type:'post',
                 url:'/deleteBoss',
-                data:item
+                data:{
+                    bossName:item
+                }
             })
             this.getBossList()
         }
@@ -115,7 +117,9 @@ class BaseDataList extends Component {
         let resMsg = await _mm.request({
             type:'post',
             url:'/addBoss',
-            data:this.state.bossItem
+            data:{
+                bossName:this.state.bossItem
+            }
         })
         this.getBossList()
         alert(resMsg.msg)
@@ -127,7 +131,9 @@ class BaseDataList extends Component {
         await _mm.request({
             type:'post',
             url:'/addCharacter',
-            data:this.state.characterItem
+            data:{
+                characterName:this.state.characterItem
+            }
         })
         this.getCharacterList()
         this.setState({
@@ -142,7 +148,7 @@ class BaseDataList extends Component {
             && window.confirm('您确定要删除全部boss的数据吗，此行为不可逆,(需确认三次，第三次确认)')
         if(!flag) return false
         // 异步请求，清除boss列表
-        _mm.request({
+        await _mm.request({
             url:'/clearBoss'
         })
         this.getBossList()

@@ -72,7 +72,10 @@ module.exports = {
   plugins: [
     // 处理HTML文件
     new HtmlWebpackPlugin({
-        template: './src/index.html'
+        template: './src/index.html',
+        thunks: ['vendor', 'index'],  // 需要引入的入口文件
+        excludeChunks: ['login'],
+        favicon: './src/favicon.ico'
     }),
     // 独立css文件
     new ExtractTextPlugin("css/[name].css") ,//打包后的文件目录(名)
@@ -160,6 +163,7 @@ module.exports = {
           target: 'http://127.0.0.1:8081',
           changeOrigin: true
         }
-      }
+      },
+      disableHostCheck:true
   }
 };

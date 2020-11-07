@@ -150,7 +150,8 @@ class MM {
         this.deleteCookie('isManager')
         this.deleteCookie('isUser')
         this.deleteCookie('username')
-        window.location.reload()
+        // alert('请登录')
+        window.location.href="/"
     }
     
     // 是否具有用户权限

@@ -52,7 +52,7 @@ class AddWork extends Component {
             let res = await _mm.request({
                 type:'post',
                 url:'/getWorkItem',
-                data:wid
+                data:{wid:wid}
             })
             this.setState({
                 bossName:res.bossName,
@@ -124,7 +124,9 @@ class AddWork extends Component {
                 await _mm.request({
                     type:'post',
                     url:'/deleteWork',
-                    data:data.wid
+                    data:{
+                        wid:data.wid
+                    }
                 })
             }
             await _mm.request({

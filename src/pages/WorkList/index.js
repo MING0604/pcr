@@ -64,7 +64,9 @@ class WorkList extends Component {
         let res = await _mm.request({
             type:'post',
             url:'/deleteWork',
-            data:wid
+            data:{
+                wid:wid
+            }
         })
         if(res.status === 200){
             alert('删除成功')
