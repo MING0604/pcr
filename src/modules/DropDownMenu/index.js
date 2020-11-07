@@ -39,6 +39,9 @@ class DropDownMenu extends Component {
             <Link to='/newWork'>添加作业</Link>
           </Menu.Item>
           <Menu.Item>
+            <Link to='/workRecommend'>查看个人排刀推荐</Link>
+          </Menu.Item>
+          <Menu.Item>
             <Link to='/workList'>查看作业列表</Link>
           </Menu.Item>
           <Menu.Item>
@@ -63,6 +66,9 @@ class DropDownMenu extends Component {
             <Link to='/newWork'>添加作业</Link>
           </Menu.Item>
           <Menu.Item>
+            <Link to='/workRecommend'>查看个人排刀推荐</Link>
+          </Menu.Item>
+          <Menu.Item>
             <Link to='/baseDataList'>修改角色和boss信息</Link>
           </Menu.Item>
           <Menu.Item>
@@ -82,6 +88,9 @@ class DropDownMenu extends Component {
           </Menu.Item>
           <Menu.Item>
             <Link to='/newWork'>添加作业</Link>
+          </Menu.Item>
+          <Menu.Item>
+            <Link to='/workRecommend'>查看个人排刀推荐</Link>
           </Menu.Item>
           <Menu.Item>
             <Link to='/workList'>查看作业列表</Link>
