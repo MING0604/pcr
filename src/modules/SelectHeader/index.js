@@ -81,6 +81,7 @@ class SelectHeader extends Component {
                 <label className="select-header-label">不想显示的角色</label>
                 <Select
                 mode="multiple"
+                className="select-character-input"
                 style={{ minWidth: '30%' }}
                 allowClear
                 placeholder="选择不想显示的角色"

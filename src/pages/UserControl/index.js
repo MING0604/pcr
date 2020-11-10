@@ -96,29 +96,31 @@ class UserControl extends PureComponent {
             let handleOwnerActionType = isOwner?'delete':'add'
             return (
                 <div className="user-item">
-                    <div>用户名：{username}</div>
-                    <div>密码：{password}</div>
+                    <div>用户名：<span className="username">{username}</span></div>
+                    <div>密码：<span className="password">{password}</span></div>
                     <div>
                         权限: 
                         {
                             isOwner?
-                            "拥有者"
+                            <span>拥有者</span>
                             :
                             isManager?
-                            "管理员"
+                            <span>管理员</span>
                             :
-                            "用户"
+                            <span>用户</span>
                         }
                     </div>
-                    <Button type={isManager?'danger':''} 
-                        onClick={(e)=>{this.handleManager(handleManagerActionType,username)}}>
-                            {isManager?'撤销管理员':'设为管理员'}
-                    </Button>
-                    <Button className="set-owner-btn" 
-                        type={isOwner?'danger':''} 
-                        onClick={(e)=>{this.handleOwner(handleOwnerActionType,username)}}>
-                        {isOwner?'撤销拥有者':'设为拥有者'}
-                    </Button>
+                    <div className="btn">
+                        <Button type={isManager?'danger':''} 
+                            onClick={(e)=>{this.handleManager(handleManagerActionType,username)}}>
+                                {isManager?'撤销管理员':'设为管理员'}
+                        </Button>
+                        <Button className="set-owner-btn" 
+                            type={isOwner?'danger':''} 
+                            onClick={(e)=>{this.handleOwner(handleOwnerActionType,username)}}>
+                            {isOwner?'撤销拥有者':'设为拥有者'}
+                        </Button>
+                    </div>
                 </div>
             )
         })

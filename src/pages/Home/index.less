@@ -1,0 +1,109 @@
+*{
+    user-select: none;
+}
+
+@iconSize:180px;
+.index-page{
+    .background{
+        background: url('../../static/index-background.png');
+        background-size: cover;
+        height: 100%;
+        width: 100%;
+        z-index: -1;
+        position: fixed;
+    }
+    .index-header{
+        background: rgba(255, 255, 255, .7);
+        .index-title{
+            display: inline-block;
+            padding: 0 20px;
+            // margin: 24px 0;
+            border-radius: 20px;
+            font: 24px bold;
+            line-height: 72px;
+        }
+        .index-flow{
+            float: right;
+            line-height: 72px;
+            margin-right: 20px;
+            font-size: 17px;
+            a{
+                color: black;
+                &:hover{
+                    color: #1890ff;
+                }
+            }
+            span{
+                color: black;
+            }
+        }
+    }
+    .index-wrap{
+        width: 70%;
+        margin: 50px auto;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        .card-item{
+            background: rgba(255, 255, 255, .7);
+            border: 1px solid orange;
+            border-radius: 25px;
+            padding: 10px;
+            margin: 0 40px 60px;
+            width: @iconSize + 20px;
+            transition: all .5s;
+            &:hover{
+                transform: scale(1.2);
+                cursor: pointer;
+                background: white;
+            }
+            .img{
+                border-radius: 20px;
+                background-size: @iconSize @iconSize;
+                width: @iconSize;
+                height: @iconSize;
+            }
+            .img1{
+                background-image: url('../../static/icon1.jpg');
+            }
+            .img2{
+                background-image: url('../../static/icon2.jpg');
+            }
+            .img3{
+                background-image: url('../../static/icon3.jpg');
+            }
+            .img4{
+                background-image: url('../../static/icon4.jpg');
+            }
+            .img5{
+                background-image: url('../../static/icon5.jpg');
+            }
+            .img6{
+                // background: url('../../static/icon6.jpg');
+            }
+            .name{
+                text-align: center;
+                font-size: 18px ;
+                line-height: 36px;
+                font-weight: bold;
+            }
+        }
+    }
+}
+@media screen and (max-width: 450px) {
+    .index-page{
+        .index-header{
+            .ant-dropdown-link{
+                padding: 7px;
+                border-radius: 3px;
+                background: rgba(255,255,255,.7);
+            }
+            .index-page-login-btn{
+                padding: 7px;
+                border-radius: 3px;
+                background: rgba(255,255,255,.7);
+                
+            }
+        }
+    }
+}

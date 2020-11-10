@@ -22,3 +22,12 @@ package-lock.json
 .eslintcache
 yarn.lock
 yarn-error.log
+
+接口信息.md
+dataBase.json
+myMsg.json
+server.js
+test.js
+toolDataBase.js
+toolUsers.js
+users.json

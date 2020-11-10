@@ -2,6 +2,9 @@ import axios from 'axios'
 class MM {
     // 异步请求
     request(params){
+        let loading = document.createElement('div')
+        loading.setAttribute('id','loading')
+        document.querySelector('#app').appendChild(loading)
         return new Promise((resolve,reject)=>{
             axios({
                 method: params.type || 'get',
@@ -10,6 +13,11 @@ class MM {
                 data: params.data || null
             })
             .then(res=>{
+                let loadDom = document.querySelector('#loading')
+                console.log(document.querySelector('#app'), loadDom)
+                if(loadDom!=null){
+                    document.querySelector('#app').removeChild(loadDom)
+                }
                 resolve(res.data)
             })
             .catch(err=>{
@@ -139,8 +147,11 @@ class MM {
             this.setCookie('isUser',true,7)
             this.setCookie('username',res.username,7)
             return true
+        }else if(res.status === 50){
+            alert('用户不存在')
+            return false
         }else{
-            alert('用户名或密码错误')
+            alert('密码错误')
             return false
         }
     }
@@ -254,6 +265,17 @@ class MM {
             }
         }
         return false
+    }
+    // 根据totalDamage对list进行排序
+    sortOnTotalDamage(recommendWorkList){
+
+        recommendWorkList.sort((next, prev)=>{
+            if(next.totalDamage > prev.totalDamage){
+                return -1
+            }else{
+                return 1
+            }
+        })
     }
 
 }

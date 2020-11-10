@@ -1,0 +1,74 @@
+.work-recommend-page {
+  height: 100%;
+  padding-top: 1px;
+}
+.work-recommend-page .background {
+  width: 100%;
+  height: 100%;
+  background: url('../../static/index-background.png');
+  background-size: cover;
+  position: fixed;
+  z-index: -1;
+}
+.work-recommend-page .recommend-wrapper {
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.7);
+  width: 60%;
+  margin: 40px auto;
+  padding: 40px;
+}
+.work-recommend-page .recommend-wrapper .recommend-item {
+  background: white;
+  border: 2px solid pink;
+  padding: 10px;
+  border-radius: 24px;
+  margin: 30px auto;
+  width: 80%;
+}
+.work-recommend-page .recommend-wrapper .recommend-item .recommend-item-title {
+  display: flex;
+  justify-content: space-between;
+}
+.work-recommend-page .recommend-wrapper .recommend-item .work-item-header {
+  display: flex;
+  justify-content: space-between;
+}
+.work-recommend-page .recommend-wrapper .recommend-item .work-item-header .bossName {
+  width: 30%;
+}
+.work-recommend-page .recommend-wrapper .recommend-item .work-item-header .characterList {
+  width: 50%;
+}
+.work-recommend-page .recommend-wrapper .recommend-item .work-item-header .damage {
+  width: 20%;
+}
+@media screen and (max-width: 450px) {
+  .work-recommend-page .recommend-wrapper {
+    padding: 10px 0;
+    width: 95%;
+  }
+  .work-recommend-page .recommend-wrapper .recommend-item {
+    width: 95%;
+  }
+  .work-recommend-page .recommend-wrapper .recommend-item .recommend-item-title {
+    display: block;
+  }
+  .work-recommend-page .recommend-wrapper .recommend-item .recommend-item-title span {
+    display: block;
+    white-space: pre-wrap;
+    width: 100%;
+  }
+  .work-recommend-page .recommend-wrapper .recommend-item .work-item-header {
+    display: flex;
+    justify-content: space-between;
+  }
+  .work-recommend-page .recommend-wrapper .recommend-item .work-item-header .bossName {
+    width: 20%;
+  }
+  .work-recommend-page .recommend-wrapper .recommend-item .work-item-header .characterList {
+    width: 50%;
+  }
+  .work-recommend-page .recommend-wrapper .recommend-item .work-item-header .damage {
+    width: 20%;
+  }
+}

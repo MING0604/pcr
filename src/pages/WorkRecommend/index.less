@@ -1,0 +1,78 @@
+.work-recommend-page{
+    height: 100%;
+    padding-top: 1px;
+    .background{
+        width: 100%;
+        height: 100%;
+        background: url('../../static/index-background.png');
+        background-size: cover;
+        position: fixed;
+        z-index: -1;
+    }
+    
+    .recommend-wrapper{
+        
+        border-radius: 24px;
+        background: rgba(255,255,255,.7);
+        width: 60%;
+        margin: 40px auto;
+        padding: 40px;
+        .recommend-item{
+            background: white;
+            border: 2px solid pink;
+            padding: 10px;
+            border-radius: 24px;
+            margin: 30px auto;
+            width: 80%;
+            .recommend-item-title{
+                display: flex;
+                justify-content: space-between;
+            }
+            .work-item-header{
+                display: flex;
+                justify-content: space-between;
+                .bossName{
+                    width: 30%;
+                }
+                .characterList{
+                    width: 50%;
+                }
+                .damage{
+                    width: 20%;
+                }
+            }
+        }
+    }
+}
+@media screen and (max-width: 450px){
+    .work-recommend-page{
+        .recommend-wrapper{
+            padding: 10px 0;
+            width: 95%;
+            .recommend-item{
+                width: 95%;
+                .recommend-item-title{
+                    display: block;
+                    span{
+                        display: block;
+                        white-space: pre-wrap;
+                        width: 100%;
+                    }
+                }
+                .work-item-header{
+                    display: flex;
+                    justify-content: space-between;
+                    .bossName{
+                        width: 20%;
+                    }
+                    .characterList{
+                        width: 50%;
+                    }
+                    .damage{
+                        width: 20%;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,29 +1,65 @@
-.work-list{
-    margin: 30px auto;
-    width: 60%;
-    .work-item-header{
-        display: flex;
-        justify-content: space-around ;
-        .bossName{
-            width: 20%;
-        }
-        .characterList{
-            width: 40%;
-        }
-        .damage{
-            width: 20%;
-        }
+.work-list-page{
+    height: 100%;
+    padding-top: 1px;
+    .backguound{
+        width: 100%;
+        height: 100%;
+        background: url('../../static/index-background.png');
+        background-size: cover;
+        position: fixed;
+        z-index: -1;
     }
-    .managerBtn{
-        // display: inline-block;
-        width: 30%;
-        float: right;
-        margin-top: -5px;
-        display: flex;
-        justify-content: space-between;
+    .content-wrap{
+        margin: 40px auto;
+        width: 60%;
+        border-radius: 24px;
+        background: rgba(255, 255, 255, .7);
+        padding: 30px 0;
+        .work-list{
+            margin: 30px auto;
+            width: 80%;
+            .work-item-header{
+                display: flex;
+                justify-content: space-around ;
+                .bossName{
+                    width: 20%;
+                }
+                .characterList{
+                    width: 40%;
+                }
+                .damage{
+                    width: 20%;
+                }
+            }
+            .managerBtn{
+                // display: inline-block;
+                width: 30%;
+                float: right;
+                margin-top: -5px;
+                display: flex;
+                justify-content: space-between;
+            }
+        }
+        .select-header{
+            margin: 0 auto;
+            width: 60%;
+        }
     }
 }
-.select-header{
-    margin: 0 auto;
-    width: 60%;
+@media screen and (max-width: 450px) {
+    .work-list-page{
+        .content-wrap{
+            width: 90%;
+            .work-list{
+                .managerBtn{
+                    margin-top: 20px;
+                    display: flex;
+                    float: none;
+                    .btn-left{
+                        margin-right: 25%;
+                    }
+                }
+            }
+        }
+    }
 }

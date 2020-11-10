@@ -1,3 +1,39 @@
-h1{
-    color: red;
+html,body{height:100%}
+#app{
+    height: 100%;
+}
+#loading{
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    background: rgba(0,0,0,.3);
+    background-position: center center;
+    background-repeat: no-repeat;
+    animation: .8s load infinite;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+@keyframes load{
+    0%{
+        background-image: url('./static/loading1.png');
+    }
+    16%{
+        background-image: url('./static/loading2.png');
+    }
+    38%{
+        background-image: url('./static/loading3.png');
+    }
+    54%{
+        background-image: url('./static/loading4.png');
+    }
+    70%{
+        background-image: url('./static/loading5.png');
+    }
+    86%{
+        background-image: url('./static/loading6.png');
+    }
+    100%{
+        background-image: url('./static/loading1.png');
+    }
 }

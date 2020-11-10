@@ -1,11 +1,30 @@
-.addWork{
-    width: 70%;
-    margin: auto;
-    margin-top: 60px;
-    display: flex;
-    justify-content: center;
-    position: relative;
-    .addWorkFrom{
-        width: 50%;
+
+.addWorkPage{
+    background: url('../../static/index-background.png');
+    background-size: cover;
+    height: 100%;
+    padding-top: 1px;
+    .addWork{
+        border-radius: 24px;
+        background: rgba(255, 255, 255, .7);
+        width: 60%;
+        margin: auto;
+        margin-top: 60px;
+        padding: 20px 0;
+        display: flex;
+        justify-content: center;
+        position: relative;
+        .addWorkFrom{
+            width: 70%;
+        }
+    }
+}
+@media screen and (max-width: 450px) {
+    .addWorkPage{
+        height: 800px;
+        background-repeat:repeat-y;
+        .addWork{
+            width: 90%;
+        }
     }
 }

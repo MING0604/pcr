@@ -161,7 +161,7 @@ class AddWork extends Component {
 
     render() {
         return (
-            <div>
+            <div className="addWorkPage">
                 <DropDownMenu />
                 <div className="addWork">
                     <Form  name="nest-messages" className="addWorkFrom" >

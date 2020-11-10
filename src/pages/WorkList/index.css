@@ -1,28 +1,60 @@
-.work-list {
-  margin: 30px auto;
-  width: 60%;
+.work-list-page {
+  height: 100%;
+  padding-top: 1px;
 }
-.work-list .work-item-header {
+.work-list-page .backguound {
+  width: 100%;
+  height: 100%;
+  background: url('../../static/index-background.png');
+  background-size: cover;
+  position: fixed;
+  z-index: -1;
+}
+.work-list-page .content-wrap {
+  margin: 40px auto;
+  width: 60%;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.7);
+  padding: 30px 0;
+}
+.work-list-page .content-wrap .work-list {
+  margin: 30px auto;
+  width: 80%;
+}
+.work-list-page .content-wrap .work-list .work-item-header {
   display: flex;
   justify-content: space-around;
 }
-.work-list .work-item-header .bossName {
+.work-list-page .content-wrap .work-list .work-item-header .bossName {
   width: 20%;
 }
-.work-list .work-item-header .characterList {
+.work-list-page .content-wrap .work-list .work-item-header .characterList {
   width: 40%;
 }
-.work-list .work-item-header .damage {
+.work-list-page .content-wrap .work-list .work-item-header .damage {
   width: 20%;
 }
-.work-list .managerBtn {
+.work-list-page .content-wrap .work-list .managerBtn {
   width: 30%;
   float: right;
   margin-top: -5px;
   display: flex;
   justify-content: space-between;
 }
-.select-header {
+.work-list-page .content-wrap .select-header {
   margin: 0 auto;
   width: 60%;
+}
+@media screen and (max-width: 450px) {
+  .work-list-page .content-wrap {
+    width: 90%;
+  }
+  .work-list-page .content-wrap .work-list .managerBtn {
+    margin-top: 20px;
+    display: flex;
+    float: none;
+  }
+  .work-list-page .content-wrap .work-list .managerBtn .btn-left {
+    margin-right: 25%;
+  }
 }

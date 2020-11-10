@@ -15,7 +15,8 @@ class DropDownMenu extends Component {
     this.state = {
       isManager: false,
       isOwner: false,
-      username:''
+      username:'',
+      logBtn:'login'
     }
   }
   componentDidMount(){
@@ -27,7 +28,13 @@ class DropDownMenu extends Component {
       isOwner,
       username
     })
+    if(username){
+      this.setState({
+        logBtn:'logout'
+      })
+    }
   }
+
   render() {
       //拥有者权限下显示的导航 
       const ownerList = (
@@ -96,7 +103,13 @@ class DropDownMenu extends Component {
             <Link to='/workList'>查看作业列表</Link>
           </Menu.Item>
           <Menu.Item>
-            <div onClick={()=>{_mm.logout()}}>退出登陆</div>
+            {
+                this.state.logBtn === 'login'
+                ?
+                <Link to='/pageLogin'>登陆</Link>
+                :
+                <div onClick={()=>{_mm.logout()}}>退出登陆</div>
+            }
           </Menu.Item>
           
         </Menu>

@@ -103,14 +103,14 @@ class WorkList extends Component {
             )
             const managerBtn = (
                 <div className="managerBtn">
-                    <Button  >
+                    <Button className="btn-left" >
                         <Link to={`/newWork/${wid}`}>编辑该作业</Link>
                     </Button>
                     <Button type="danger" onClick={()=>{this.deleteWork(wid)}}>删除该作业</Button>
                 </div>
             )
             return (
-                <Panel key={wid} header={header} data-wid={wid} className={wid}>
+                <Panel key={wid} header={header} >
                     {
                         workType == 'url'
                         ?
@@ -141,25 +141,28 @@ class WorkList extends Component {
             
         })
         return (
-            <div>
+            <div className="work-list-page">
+                <div className="backguound"></div>
                 <DropDownMenu />
-                <div className="select-header">
-                    <SelectHeader 
-                        handleWorkSelect={(selectObj)=>{this.handleWorkSelect(selectObj)}}/>
-                </div>
-                <div className="work-list">
-                    <Collapse >
+                <div className='content-wrap'>
+                    <div className="select-header">
+                        <SelectHeader 
+                            handleWorkSelect={(selectObj)=>{this.handleWorkSelect(selectObj)}}/>
+                    </div>
+                    <div className="work-list">
+                        <Collapse >
+                            {
+                                listDom
+                            }
+                        </Collapse>
                         {
-                            listDom
+                            this.state.workList.length
+                            ?
+                            null
+                            :
+                            <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
                         }
-                    </Collapse>
-                    {
-                        this.state.workList.length
-                        ?
-                        null
-                        :
-                        <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
-                    }
+                    </div>
                 </div>
 
             </div>

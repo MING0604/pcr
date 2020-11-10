@@ -1,0 +1,96 @@
+* {
+  user-select: none;
+}
+.index-page .background {
+  background: url('../../static/index-background.png');
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+  position: fixed;
+}
+.index-page .index-header {
+  background: rgba(255, 255, 255, 0.7);
+}
+.index-page .index-header .index-title {
+  display: inline-block;
+  padding: 0 20px;
+  border-radius: 20px;
+  font: 24px bold;
+  line-height: 72px;
+}
+.index-page .index-header .index-flow {
+  float: right;
+  line-height: 72px;
+  margin-right: 20px;
+  font-size: 17px;
+}
+.index-page .index-header .index-flow a {
+  color: black;
+}
+.index-page .index-header .index-flow a:hover {
+  color: #1890ff;
+}
+.index-page .index-header .index-flow span {
+  color: black;
+}
+.index-page .index-wrap {
+  width: 70%;
+  margin: 50px auto;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.index-page .index-wrap .card-item {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid orange;
+  border-radius: 25px;
+  padding: 10px;
+  margin: 0 40px 60px;
+  width: 200px;
+  transition: all 0.5s;
+}
+.index-page .index-wrap .card-item:hover {
+  transform: scale(1.2);
+  cursor: pointer;
+  background: white;
+}
+.index-page .index-wrap .card-item .img {
+  border-radius: 20px;
+  background-size: 180px 180px;
+  width: 180px;
+  height: 180px;
+}
+.index-page .index-wrap .card-item .img1 {
+  background-image: url('../../static/icon1.jpg');
+}
+.index-page .index-wrap .card-item .img2 {
+  background-image: url('../../static/icon2.jpg');
+}
+.index-page .index-wrap .card-item .img3 {
+  background-image: url('../../static/icon3.jpg');
+}
+.index-page .index-wrap .card-item .img4 {
+  background-image: url('../../static/icon4.jpg');
+}
+.index-page .index-wrap .card-item .img5 {
+  background-image: url('../../static/icon5.jpg');
+}
+.index-page .index-wrap .card-item .name {
+  text-align: center;
+  font-size: 18px ;
+  line-height: 36px;
+  font-weight: bold;
+}
+@media screen and (max-width: 450px) {
+  .index-page .index-header .ant-dropdown-link {
+    padding: 7px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.7);
+  }
+  .index-page .index-header .index-page-login-btn {
+    padding: 7px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.7);
+  }
+}

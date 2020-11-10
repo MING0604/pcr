@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { List, Button, Divider, Input } from 'antd';
-import { Link } from 'react-router-dom'
 
 import MM from 'util/MM'
 import DropDownMenu from 'modules/DropDownMenu'

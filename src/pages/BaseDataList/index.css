@@ -29,3 +29,16 @@
   right: -40px;
   top: 54px;
 }
+@media screen and (max-width: 450px) {
+  .base-data-list {
+    width: 90%;
+  }
+  .base-data-list .clear-boss-btn {
+    position: static;
+    margin-top: 18px;
+  }
+  .base-data-list .list .add-btn {
+    margin-left: 0;
+    margin-top: 10px;
+  }
+}

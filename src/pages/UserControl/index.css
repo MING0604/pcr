@@ -5,10 +5,43 @@
 .user-control-list .user-item {
   display: flex;
   width: 100%;
+  justify-content: space-around;
 }
 .user-control-list .user-item div {
-  width: 20%;
+  width: 18%;
+  word-break: break-all;
 }
-.user-control-list .user-item .set-owner-btn {
+.user-control-list .user-item .btn {
+  width: 40%;
+}
+.user-control-list .user-item .btn .set-owner-btn {
   margin-left: 10%;
+}
+@media screen and (max-width: 450px) {
+  .user-control-list {
+    width: 80%;
+  }
+  .user-control-list .user-item {
+    display: flex;
+    width: 100%;
+  }
+  .user-control-list .user-item div {
+    width: 20%;
+  }
+  .user-control-list .user-item div span {
+    display: block;
+  }
+  .user-control-list .user-item div .username {
+    width: 90%;
+  }
+  .user-control-list .user-item div .password {
+    width: 90%;
+  }
+  .user-control-list .user-item .btn {
+    width: 40%;
+  }
+  .user-control-list .user-item .btn .set-owner-btn {
+    margin-top: 10px;
+    margin-left: 0;
+  }
 }
