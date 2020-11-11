@@ -14,7 +14,6 @@ class MM {
             })
             .then(res=>{
                 let loadDom = document.querySelector('#loading')
-                console.log(document.querySelector('#app'), loadDom)
                 if(loadDom!=null){
                     document.querySelector('#app').removeChild(loadDom)
                 }

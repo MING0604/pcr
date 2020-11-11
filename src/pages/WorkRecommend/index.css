@@ -42,6 +42,20 @@
 .work-recommend-page .recommend-wrapper .recommend-item .work-item-header .damage {
   width: 20%;
 }
+.work-recommend-page .recommend-wrapper .recommend-item .textMsg {
+  background: white;
+  color: rgba(0, 0, 0, 0.65);
+  resize: none;
+}
+.work-recommend-page .recommend-wrapper .recommend-item .remark label {
+  display: block;
+  margin: 10px 0;
+}
+.work-recommend-page .recommend-wrapper .recommend-item .remark textarea {
+  background: white;
+  color: rgba(0, 0, 0, 0.65);
+  resize: none;
+}
 @media screen and (max-width: 450px) {
   .work-recommend-page .recommend-wrapper {
     padding: 10px 0;

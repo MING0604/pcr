@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Collapse, Modal, Button, Empty } from 'antd';
+import { Collapse, Modal, Button, Empty, Input } from 'antd';
 import { Link } from 'react-router-dom';
 
 import MM from 'util/MM'
@@ -8,6 +8,7 @@ import SelectHeader from 'modules/SelectHeader';
 
 import './index.css'
 
+const { TextArea } = Input
 const _mm = new MM()
 class WorkList extends Component {
     constructor(props) {
@@ -93,7 +94,8 @@ class WorkList extends Component {
                 damage = workItem.damage,
                 workMessage = workItem.workMessage,
                 workType = workItem.workType,
-                wid = workItem.wid
+                wid = workItem.wid,
+                remark = workItem.remark
             let header = (
                 <div className="work-item-header">
                     <div className="bossName">{`boss： ${bossName}`}</div>
@@ -112,10 +114,12 @@ class WorkList extends Component {
             return (
                 <Panel key={wid} header={header} >
                     {
-                        workType == 'url'
+                        workType === 'url'
                         ?
                         <a href={workMessage} target="_blank" >作业链接：{workMessage}</a>
                         :
+                        workType === 'image'
+                        ?
                         <div>
                             <img style={{width:"80px"}} 
                                 src={workMessage}
@@ -127,6 +131,12 @@ class WorkList extends Component {
                                 <img alt="example" style={{ width: '100%' }} src={this.state.previewImg} />
                             </Modal>
                         </div>
+                        :
+                        workType === 'text'
+                        ?
+                        <Input.TextArea className="textMsg" autoSize disabled value={workMessage}></Input.TextArea>
+                        :
+                        <div>出bug了，请联系手捧初梦（管理人）</div>
                     }
                     {
                         this.state.isManager
@@ -136,6 +146,14 @@ class WorkList extends Component {
                         null
 
                     }
+                    <div className="remark">
+                        <label>备注</label>
+                        <TextArea
+                            autoSize
+                            disabled
+                            placeholder="无备注~"
+                            value={remark}></TextArea>
+                    </div>
                 </Panel>
             )
             

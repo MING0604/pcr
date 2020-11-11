@@ -34,10 +34,28 @@
 .work-list-page .content-wrap .work-list .work-item-header .damage {
   width: 20%;
 }
+.work-list-page .content-wrap .work-list .textMsg {
+  display: block;
+  margin-bottom: 10px;
+  background: white;
+  color: rgba(0, 0, 0, 0.65);
+  resize: none;
+}
+.work-list-page .content-wrap .work-list .textMsg + .managerBtn {
+  float: none;
+}
+.work-list-page .content-wrap .work-list .remark label {
+  display: block;
+  margin: 10px 0;
+}
+.work-list-page .content-wrap .work-list .remark textarea {
+  background: white;
+  color: rgba(0, 0, 0, 0.65);
+  resize: none;
+}
 .work-list-page .content-wrap .work-list .managerBtn {
-  width: 30%;
+  width: 32%;
   float: right;
-  margin-top: -5px;
   display: flex;
   justify-content: space-between;
 }

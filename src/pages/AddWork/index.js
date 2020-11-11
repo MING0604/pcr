@@ -4,9 +4,9 @@ import ImageUploader from './ImageUpload';
 import MM from 'util/MM'
 import DropDownMenu from 'modules/DropDownMenu'
 
-
 import './index.css'
 
+const { TextArea } = Input;
 const _mm = new MM()
 const { Option } = Select;
 
@@ -23,7 +23,8 @@ class AddWork extends Component {
             characterData:[],
             bossData:[],
             isModify:false,
-            wid:0
+            wid:0,
+            remark:''
         }
         
     }
@@ -61,7 +62,8 @@ class AddWork extends Component {
                 workType:res.workType,
                 characterList:res.characterList,
                 isModify:true,
-                wid:res.wid
+                wid:res.wid,
+                remark:res.remark
             })
         }
     }
@@ -77,6 +79,13 @@ class AddWork extends Component {
         this.setState({
             characterList
         })
+    }
+    // 修改作业的备注
+    handleRemark({target:{value:remark}}){
+        this.setState({
+            remark
+        })
+        // console.log(remark)
     }
 
     // 修改作业伤害
@@ -162,6 +171,7 @@ class AddWork extends Component {
     render() {
         return (
             <div className="addWorkPage">
+                <div className="background"></div>
                 <DropDownMenu />
                 <div className="addWork">
                     <Form  name="nest-messages" className="addWorkFrom" >
@@ -175,7 +185,6 @@ class AddWork extends Component {
                         >
                             {
                                 this.state.bossData.map((bossItem,index)=>{
-                                    // let stage = String.fromCharCode(65+bossItem.stage-1)
                                     return (
                                         <Option key={index} value={bossItem}>
                                             {bossItem}
@@ -200,6 +209,12 @@ class AddWork extends Component {
                                 }
                             </Select>
                         </Form.Item>
+                        <Form.Item label="备注" >
+                            <TextArea autoSize 
+                                placeholder="作业中角色的星级以及rank相关信息的备注（选填）" 
+                                onChange={(value)=>{this.handleRemark(value)}}
+                                value={this.state.remark}></TextArea>
+                        </Form.Item>
                         <Form.Item label="标伤" >
                             <Input style={{ width: 200 }} 
                                 addonAfter="W" 
@@ -211,18 +226,32 @@ class AddWork extends Component {
                         <Form.Item label="作业类型" >
                             <Button name='image' disabled onClick={(e)=>{this.handleType(e.target.name)}}>图片</Button> 
                             <Button name='url' onClick={(e)=>{this.handleType(e.target.name)}}>链接</Button> 
+                            <Button name='text' onClick={(e)=>{this.handleType(e.target.name)}}>文字轴</Button> 
                         </Form.Item>
                         {
-                            this.state.workType == 'image'
+                            this.state.workType === 'image'
                             ?
                             <ImageUploader handleWork={(workMessage)=>{this.handleWork(workMessage)}} />
                             :
+                            this.state.workType === 'url'
+                            ?
                             <Form.Item >
                                 <Input placeholder="作业地址" 
                                     value={this.state.workMessage}
                                     onChange={(e)=>{this.handleWork(e.target.value)}} 
                                     />
                             </Form.Item>
+                            :
+                            this.state.workType === 'text'
+                            ?
+                            <div className="textWork">
+                                <Input.TextArea autoSize 
+                                    placeholder="请输入文字轴" 
+                                    value={this.state.workMessage}
+                                    onChange={(e)=>{this.handleWork(e.target.value)}} ></Input.TextArea>
+                            </div>
+                            :
+                            <div>出bug了，请联系手捧初梦（管理人）</div>
                         }
                         <Form.Item >
                             <Button type="primary" 

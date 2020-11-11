@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Card, Collapse } from 'antd';
+import { Card, Collapse, Input } from 'antd';
 import MM from 'util/MM'
 import DropDownMenu from 'modules/DropDownMenu'
 
@@ -7,7 +7,7 @@ import getRecommendList from './algorithm.js'
 import './index.css'
 const _mm = new MM()
 const { Panel } = Collapse;
-
+const { TextArea } = Input
 class WorkRecommend extends Component {
     constructor(props) {
         super(props)
@@ -34,10 +34,10 @@ class WorkRecommend extends Component {
             this.state.recommendWorkList.map((recommendItem,index1)=>{
                 let title = (
                     <div className="recommend-item-title">
-                        <span>{`三刀Boss： ${recommendItem.workList.map((item,index2)=>{
+                        <span>{`三刀Boss： ${recommendItem.workList.map((item)=>{
                             return " " + item.bossName
                         })}`}</span>
-                        <span>{`总伤害： ${recommendItem.totalDamage}`}</span>
+                        <span>{`总伤害： ${recommendItem.totalDamage} W`}</span>
                     </div>
                 )
                 return(
@@ -46,7 +46,7 @@ class WorkRecommend extends Component {
                             <Collapse>
                                 {
                                     recommendItem.workList.map((workItem,index3)=>{
-                                        const { bossName, damage, characterList, workType, workMessage, wid } = workItem
+                                        const { bossName, damage, characterList, workType, workMessage, wid, remark } = workItem
                                         const header = (
                                             <div className="work-item-header">
                                                 <div className="bossName">{`boss： ${bossName}`}</div>
@@ -57,10 +57,12 @@ class WorkRecommend extends Component {
                                         return (
                                             <Panel key={index3} header={header} key={wid}>
                                                 {
-                                                    workType == 'url'
+                                                    workType === 'url'
                                                     ?
                                                     <a href={workMessage} target="_blank" >作业链接：{workMessage}</a>
                                                     :
+                                                    workType === 'image'
+                                                    ?
                                                     <div>
                                                         图片显示器（还没做完）
                                                         {/* <img style={{width:"80px"}} 
@@ -73,7 +75,21 @@ class WorkRecommend extends Component {
                                                             <img alt="example" style={{ width: '100%' }} src={this.state.previewImg} />
                                                         </Modal> */}
                                                     </div>
+                                                    :
+                                                    workType === 'text'
+                                                    ?
+                                                    <Input.TextArea className="textMsg" autoSize disabled value={workMessage}/>
+                                                    :
+                                                    null
                                                 }
+                                                <div className="remark">
+                                                    <label>备注</label>
+                                                    <TextArea
+                                                        autoSize
+                                                        disabled
+                                                        placeholder="无备注~"
+                                                        value={remark}></TextArea>
+                                                </div>
                                             </Panel>
                                         )
                                     })
