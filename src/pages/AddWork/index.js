@@ -139,10 +139,13 @@ class AddWork extends Component {
                     type:'post',
                     url:'/deleteWork',
                     data:{
-                        wid:data.wid
+                        wid:data.wid,
+                        username:_mm.getCookie('username')
                     }
                 })
             }
+            data.username = _mm.getCookie('username')
+            console.log(data)
             await _mm.request({
                 type:'post',
                 url:'/addWork',

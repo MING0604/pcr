@@ -66,7 +66,8 @@ class WorkList extends Component {
             type:'post',
             url:'/deleteWork',
             data:{
-                wid:wid
+                wid:wid,
+                username:_mm.getCookie('username')
             }
         })
         if(res.status === 200){
