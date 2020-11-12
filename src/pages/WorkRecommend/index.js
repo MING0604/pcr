@@ -17,6 +17,12 @@ class WorkRecommend extends Component {
         }
     }
     async componentDidMount(){
+        // 判断用户是否登陆
+        let isUser = _mm.isUser()
+        if(!isUser){
+            this.props.history.push('/pageLogin')
+            return
+        }
         const totalWorkList = await _mm.request({
             url:'/getWorkList'
         })

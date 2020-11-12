@@ -40,11 +40,10 @@ class Login extends Component {
         }else if(!this.state.password){
             alert('密码不能为空！')
         }else {
-
             // 异步请求，登陆
             let success = await _mm.login(this.state.username,this.state.password)
             if(success) {
-                window.history.back()
+                this.props.history.push('/')
             }
         }
     }

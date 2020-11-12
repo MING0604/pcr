@@ -36,6 +36,11 @@ class AddWork extends Component {
             this.props.history.push('/pageLogin')
             return
         }
+        let isManager = _mm.isManager()
+        if(!isManager){
+            this.props.history.push('/pageLogin')
+            return
+        }
         // 异步请求角色和boss数据
         let characterData = await _mm.request({
             url:'/getCharacter'

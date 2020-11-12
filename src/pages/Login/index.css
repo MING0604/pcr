@@ -17,8 +17,8 @@
 .page-login .login-wrap .login-form .switch-btn {
   position: absolute;
   border-radius: 5px;
-  left: 20%;
-  width: 80px;
+  left: 10%;
+  min-width: 80px;
   height: 34px;
   display: flex;
   justify-content: center;
